@@ -170,7 +170,8 @@
                                             <option value="312228VP,69007">Market data integration</option>
                                             <option value="S-Project,69009">Sample Project</option>
                                         </select>
-                                    </div> <div class="col-md-3" id="taskList">
+                                    </div>
+                                    <div class="col-md-3" id="taskList">
                                         <select style="width: 100%; display: block;" id="project_selector" class="pq-select" name="taskCodeForm">
                                             <option value="select task">Select Task...</option>
                                         </select>
@@ -182,6 +183,20 @@
                     </tr>
                 </tbody>
             </table>
+
+            <div style="color:red;" id="errormessage"></div>
+            <div class="row"><div class="col-md-offset-5  col-md-1  "><span class="toclr" style="background:#b4c8dc;"></span>Time Off</div> <div class="col-md-2 "><span class="toclr" style="background:#d2cece;">  </span> Holiday/Weekend </div>  </div>
+            <div id="timesheet_submission_controls" class="btn_container_footer">
+
+                <div style="float:right;">
+
+                    <a href="#" id="stop_timer" class="btn btn-warning  disabled">Start Timer <span class="fa fa-clock-o"></span></a>
+                    <a href="#" class="btn btn-primary disabled">Save</a>
+
+                    <a href="#" class="btn btn-primary  disabled">Submit</a>
+
+
+                </div>
 
         </form>
     </div>
