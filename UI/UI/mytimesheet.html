@@ -27,6 +27,10 @@
             $("#FriDate").html(MONTH_NAMES[Friday.getMonth()] + " " + Friday.getDate());
             $("#SatDate").html(MONTH_NAMES[Saturday.getMonth()] + " " + Saturday.getDate());
             $("#SunDate").html(MONTH_NAMES[Sunday.getMonth()] + " " + Sunday.getDate());
+
+            $("#selectedWeek").html(MONTH_NAMES[Monday.getMonth()] + "-" + Monday.getDate() + "-" + Monday.getFullYear()+" to "+
+                MONTH_NAMES[Sunday.getMonth()] + "-" + Sunday.getDate() + "-" + Sunday.getFullYear()
+                );
         }
     </script>
 
