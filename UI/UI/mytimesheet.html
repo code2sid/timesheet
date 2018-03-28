@@ -79,8 +79,7 @@
                         <a class="previous" href="javascript: UpdateWeek(-7);"><img src="/images/previous2.png" alt="prev" title="Previous Week" height="25" width="20"></a>
                         <input type="button" name="date11Form" value="Current Week" onclick="javascript: setWeek();" class="btn-week">
                         <a class="next" href="javascript:UpdateWeek(7);"><img src="/images/next2.png" alt="next" title="Next Week" height="25" width="20"></a>
-                        <input type="hidden" id="datepicker" oninput= "this.onchange(this);"
->
+                        <input type="hidden" id="datepicker" oninput="this.onchange(this);">
                     </form>
                 </li>
             </ul>
@@ -113,11 +112,50 @@
 
                 </tr>
             </thead>
+            <tbody>
+                <tr class="timeTotal">
+                    <td></td>
+                    <td></td>
+                    <td>Time Entry Comments</td>
+                    <td colspan="9" style="text-align:left;">
+                        <span style="vertical-align:top;">
+                            <textarea id="commentsForm" placeholder="Comments for Highlighted Date Cell (Max 1024 characters)" name="commentsForm" rows="1" onchange="getComments(update,this);"
+                                      style="width:100%;height:25px;" class="inputexpense"></textarea>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="13">
+                        <div id="add_form" class="add_row_form">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <a class="btn btn-success btn-sm" href="javascript:addRow('no')" data-original-title="Add New Row" title="Add New Row" aria-expanded="false"> Add Row <span class="fa fa-plus-square"></span></a>
+                                </div>
+                                <div class="col-md-3">
+                                    <select style="width: 100%; display: block;" name="project_codeForm" id="select2" onchange="getTaskList(this);" class="pq-select">
+                                        <option value="select project">Select Project</option>
+                                        <option value="INT,69007">Internal</option>
+                                        <option value="312228VP,69007">Market data integration</option>
+                                        <option value="S-Project,69009">Sample Project</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3" id="taskList">
+                                    <select style="width: 100%; display: block;" id="project_selector" class="pq-select" name="taskCodeForm">
+                                        <option value="select task">Select Task...</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
         </table>
     </div>
 </body>
 <script type="text/javascript">
     setWeek((new Date));
+    getProjects(101);
 
 </script>
 
