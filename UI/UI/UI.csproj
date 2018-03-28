@@ -77,6 +77,7 @@
     <Content Include="images\previous2.png" />
     <Content Include="images\trash.png" />
     <Content Include="images\upload_excel.png" />
+    <Content Include="jsCode\mytimesheet.js" />
     <Content Include="js\jquery-1.12.4.js" />
     <Content Include="js\jquery-ui.js" />
     <Content Include="mytimesheet.html" />
