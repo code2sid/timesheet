@@ -8,12 +8,12 @@ using System.Web.Http;
 
 namespace API.Controllers
 {
-    [RoutePrefix("api/GeneralLiability")]
+    [RoutePrefix("api/TimeSheet")]
     public class TimesheetController : ApiController
     {
 
         [Route("GetProjects")]
-        public List<Project> GetProjects(int clinetID)
+        public List<Project> GetProjects(int clinetID = 0)
         {
             return new List<Project> {
                 new Project { Id = 1001, Name = "Data Integration" },

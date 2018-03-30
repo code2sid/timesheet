@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Time Sheet</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style/style.css">
+    <link href="style/jquery-ui.css" rel="stylesheet" />
+
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+
+    <script src="js/jquery-1.12.4.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="jsCode/mytimesheet.js"></script>
+    <script>
+        $(function () {
+            $(function () {
+                $("#datepicker").datepicker({
+                    showOn: "button",
+                    buttonImage: "/images/calendar.png",
+                    buttonImageOnly: true,
+                    buttonText: "Select date"
+                });
+            });
+        });
+
+
+    </script>
+
+    <script type="text/javascript">
+        function onchange() {
+            currentdt = new Date($("#datepicker").val());
+            setWeek(currentdt);
+        }
+
+        var currentdt = new Date;
+        function setWeek(selectedDate) {
+            var curr = selectedDate == undefined ? new Date : selectedDate;
+            var Monday = new Date(curr.setDate(curr.getDate() - curr.getDay() + 1));
+            var Tuesday = new Date(curr.setDate(curr.getDate() - curr.getDay() + 2));
+            var Wednesday = new Date(curr.setDate(curr.getDate() - curr.getDay() + 3));
+            var Thursday = new Date(curr.setDate(curr.getDate() - curr.getDay() + 4));
+            var Friday = new Date(curr.setDate(curr.getDate() - curr.getDay() + 5));
+            var Saturday = new Date(curr.setDate(curr.getDate() - curr.getDay() + 6));
+            var Sunday = new Date(curr.setDate(curr.getDate() - curr.getDay() + 7));
+
+            const MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+
+            $("#MonDate").html(MONTH_NAMES[Monday.getMonth()] + " " + Monday.getDate());
+            $("#TueDate").html(MONTH_NAMES[Tuesday.getMonth()] + " " + Tuesday.getDate());
+            $("#WedDate").html(MONTH_NAMES[Wednesday.getMonth()] + " " + Wednesday.getDate());
+            $("#ThuDate").html(MONTH_NAMES[Thursday.getMonth()] + " " + Thursday.getDate());
+            $("#FriDate").html(MONTH_NAMES[Friday.getMonth()] + " " + Friday.getDate());
+            $("#SatDate").html(MONTH_NAMES[Saturday.getMonth()] + " " + Saturday.getDate());
+            $("#SunDate").html(MONTH_NAMES[Sunday.getMonth()] + " " + Sunday.getDate());
+
+            $("#selectedWeek").html(MONTH_NAMES[Monday.getMonth()] + "-" + Monday.getDate() + "-" + Monday.getFullYear() + " to " +
+                MONTH_NAMES[Sunday.getMonth()] + "-" + Sunday.getDate() + "-" + Sunday.getFullYear()
+            );
+        }
+
+        function UpdateWeek(val) {
+            var newDt = new Date(currentdt);
+            newDt.setDate(newDt.getDate() + val);
+            currentdt = new Date(newDt);
+            setWeek(newDt);
+        }
+    </script>
+</head>
+<body>
+
+    <div class="topband clearfix">
+        <ul>
+            <li><a class="active" href="javascript:void(0);">New</a></li>
+            <li><a href="javascript:void(0);">Saved &nbsp;<span></span></a></li>
+            <li><a href="javascript:void(0);">Pending &nbsp;<span></span></a></li>
+            <li><a href="javascript:void(0);">Approved</a></li>
+        </ul>
+    </div>
+
+    <div class="contentWrapper">
+        <div class="viewEdit clearfix">
+            <span>View/Edit Time For</span>
+            <select name="employeeName" id="employeeName">
+                <option value="">Test</option>
+                <option value="">Test</option>
+                <option value="">Test</option>
+                <option value="">Test</option>
+            </select>
+            <select name="timePeriod" id="timePeriod">
+                <option value="">Daily</option>
+                <option value="">Weekly</option>
+                <option value="">Monthly</option>
+            </select>
+            <div class="calendar">
+                <a class="previous" href="javascript: UpdateWeek(-7);"><img src="/images/previous2.png" alt="prev" title="Previous Week" height="25" width="20"></a>
+                <input type="button" name="date11Form" value="Current Week" onclick="javascript: setWeek();" class="btn-week">
+                <a class="next" href="javascript:UpdateWeek(7);"><img src="/images/next2.png" alt="next" title="Next Week" height="25" width="20"></a>
+                <input type="hidden" id="datepicker" oninput="this.onchange(this);">
+            </div>
+        </div>
+    </div>
+    <div class="gridWrapper">
+        <div class="employeeInfo">
+            Test Hours from <span class="from" id="selectedWeek"></span>
+            <a href="javascript:void(0);">Show All Comments</a>
+        </div>
+        <div class="table-responsive">
+            <table class="tblOffer" width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <th width="25%" width="25%">Project/Job</th>
+                    <th width="22%">Task/Service</th>
+                    <th width="6%"><span class="day">Mon</span><span class="date" id="MonDate"></span></th>
+                    <th width="6%"><span class="day">Tue</span><span class="date" id="TueDate"></span></th>
+                    <th width="6%"><span class="day">Wed</span><span class="date" id="WedDate"></span></th>
+                    <th width="6%"><span class="day">Thu</span><span class="date" id="ThuDate"></span></th>
+                    <th width="6%"><span class="day">Fri</span><span class="date" id="FriDate"></span></th>
+                    <th width="6%"><span class="day">Sat</span><span class="date" id="SatDate"></span></th>
+                    <th width="6%"><span class="day">Sun</span><span class="date" id="SunDate"></span></th>
+                    <th width="6%">Total</th>
+                    <th width="5%"></th>
+                </tr>
+                <tr>
+                    <td>Data Integration</td>
+                    <td>Billable Task</td>
+                    <td><span class="value">8.00</span></td>
+                    <td><span class="value">8.00</span></td>
+                    <td><span class="value">8.00</span></td>
+                    <td><span class="value absent">0.00</span></td>
+                    <td><span class="value absent">0.00</span></td>
+                    <td><span class="value weekend">0.00</span></td>
+                    <td><span class="value weekend">0.00</span></td>
+                    <td><strong>24.00</strong></td>
+                    <td><a href="javascript:void(0);" class="delete">X</a></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><strong>Total</strong></td>
+                    <td>8.00</td>
+                    <td>8.00</td>
+                    <td>8.00</td>
+                    <td>0.00</td>
+                    <td>0.00</td>
+                    <td>0.00</td>
+                    <td>0.00</td>
+                    <td><strong>24.00</strong></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><strong>Time Entry Comments</strong></td>
+                    <td colspan="9"><textarea name="" id="" cols="30" rows="10"></textarea></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="addRow clearfix">
+        <a href="javascript:void(0);" class="add">Add +</a>
+        <select name="employeeName" id="employeeName">
+            <option value="">Test</option>
+            <option value="">Test</option>
+            <option value="">Test</option>
+            <option value="">Test</option>
+        </select>
+        <select name="timePeriod" id="timePeriod">
+            <option value="">Daily</option>
+            <option value="">Weekly</option>
+            <option value="">Monthly</option>
+        </select>
+    </div>
+    <div class="btnRow">
+        <input type="submit" value="Save"><input type="submit" value="Submit">
+    </div>
+
+    <script type="text/javascript">
+        setWeek((new Date));
+        getProjects(101);
+
+    </script>
+</body>
+</html>

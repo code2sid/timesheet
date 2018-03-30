@@ -2,8 +2,8 @@
 
     $.ajax({
         type: 'GET',
-        url: '/getProjects',
-        data: { clientId: clientId },
+        url: 'http://localhost:62433/api/timesheet/GetProjects',
+        //data: { clientId: clientId },
         success: function (data) {
             alert(data.d);
         }
