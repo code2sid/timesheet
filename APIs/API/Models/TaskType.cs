@@ -5,11 +5,9 @@ using System.Web;
 
 namespace API.Models
 {
-    public class Task
+    public class TaskType
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int TaskTypeId { get; set; }
-        public TaskType TaskType { get; set; }
     }
 }

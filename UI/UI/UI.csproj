@@ -80,14 +80,12 @@
     <Content Include="jsCode\mytimesheet.js" />
     <Content Include="js\jquery-1.12.4.js" />
     <Content Include="js\jquery-ui.js" />
-    <Content Include="mytimesheet.html" />
     <Content Include="style\bootstrap.min.css" />
     <Content Include="style\jquery-ui.css" />
     <Content Include="style\main.css" />
     <Content Include="style\mystyle.css" />
     <Content Include="style\style.css" />
     <Content Include="time.html" />
-    <Content Include="Timesheet.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

@@ -1,8 +1,11 @@
-﻿function getProjects(clientId) {
+﻿var apiURL = 'http://localhost:50792/api/timesheet';
 
-    $.ajax("http://localhost:50792/api/timesheet/getprojects", {
+
+function getProjects(clientId) {
+
+    $.ajax(apiURL + "/getprojects", {
         type: "GET",
-        //data: JSON.stringify({ data: "Hello world!" }),
+        data: clientId,
         contentType: "application/json",
     }).done(function (clients) {
         for (var i = 0; i < clients.length; i++) {
