@@ -32,7 +32,7 @@
     </script>
 
     <script type="text/javascript">
-        
+
     </script>
 </head>
 <body>
@@ -74,15 +74,14 @@
             <a href="javascript:void(0);">Show All Comments</a>
         </div>
         <div class="addRow clearfix">
-            <a href="javascript:void(0);" class="add">Add +</a>
-            <select name="projects" id="projects">
-            </select>
+            <a href="#" class="add" id="addRow">Add +</a>
+            <select name="projects" id="projects"></select>
             <select name="tasks" id="tasks"></select>
         </div>
         <div class="table-responsive">
-            <table class="tblOffer" width="100%" cellpadding="0" cellspacing="0" border="0">
+            <table id="tblweek" class="tblOffer" width="100%" cellpadding="0" cellspacing="0" border="0">
                 <tr>
-                    <th width="25%" width="25%">Project/Job</th>
+                    <th width="25%">Project/Job</th>
                     <th width="22%">Task/Service</th>
                     <th width="6%"><span class="day">Mon</span><span class="date" id="MonDate"></span></th>
                     <th width="6%"><span class="day">Tue</span><span class="date" id="TueDate"></span></th>
@@ -94,31 +93,20 @@
                     <th width="6%">Total</th>
                     <th width="5%"></th>
                 </tr>
+            </table>
+            <table id="tblweektotal" class="tblOffer" width="100%" cellpadding="0" cellspacing="0" border="0">
                 <tr>
-                    <td>Data Integration</td>
-                    <td>Billable Task</td>
-                    <td><span class="value">8.00</span></td>
-                    <td><span class="value">8.00</span></td>
-                    <td><span class="value">8.00</span></td>
-                    <td><span class="value absent">0.00</span></td>
-                    <td><span class="value absent">0.00</span></td>
-                    <td><span class="value weekend">0.00</span></td>
-                    <td><span class="value weekend">0.00</span></td>
-                    <td><strong>24.00</strong></td>
-                    <td><a href="javascript:void(0);" class="delete">X</a></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><strong>Total</strong></td>
-                    <td>8.00</td>
-                    <td>8.00</td>
-                    <td>8.00</td>
-                    <td>0.00</td>
-                    <td>0.00</td>
-                    <td>0.00</td>
-                    <td>0.00</td>
-                    <td><strong>24.00</strong></td>
-                    <td></td>
+                    <td width="25%"></td>
+                    <td width="22%"><strong>Total</strong></td>
+                    <td width="6%">8.00</td>
+                    <td width="6%">8.00</td>
+                    <td width="6%">8.00</td>
+                    <td width="6%">0.00</td>
+                    <td width="6%">0.00</td>
+                    <td width="6%">0.00</td>
+                    <td width="6%">0.00</td>
+                    <td width="6%"><strong>24.00</strong></td>
+                    <td width="5%"></td>
                 </tr>
                 <tr>
                     <td></td>
@@ -128,7 +116,7 @@
             </table>
         </div>
     </div>
-    
+
     <div class="btnRow">
         <input type="submit" value="Save"><input type="submit" value="Submit">
     </div>

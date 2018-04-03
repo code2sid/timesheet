@@ -77,16 +77,47 @@ $(document).on('change', '#projects', function () {
     });
 });
 
-jQuery(function () {
-    var counter = 1;
-    jQuery('a.add-author').click(function (event) {
-        event.preventDefault();
 
-        var newRow = jQuery('<tr><td><input type="text" name="first_name' +
-            counter + '"/></td><td><input type="text" name="last_name' +
-            counter + '"/></td></tr>');
-        counter++;
-        jQuery('table.authors-list').append(newRow);
-
-    });
+$(document).on('click', '.delete', function () {
+    $(this).parent().parent().remove();
 });
+
+var counter = 1;
+$(document).on('click', '#addRow', function () {
+    event.preventDefault();
+
+    if ($("#projects").val() == "0" && ($("#tasks").val() == "0" || $("#tasks").val() == null)) {
+        alert("Please select Project and its task");
+        return;
+    }
+
+    var newRow = $('<tr>\
+                    <td>' + $("#projects option:selected").text() + '</td>\
+                    <td>' + $("#tasks option:selected").text() + '</td>\
+                    <td><span class="value Mon rowCntr'+ counter + '">8.00</span></td>\
+                    <td><span class="value Tue rowCntr'+ counter + '">8.00</span></td>\
+                    <td><span class="value Wed rowCntr' + counter + '">8.00</span></td>\
+                    <td><span class="value Thu rowCntr' + counter + '"">0.00</span></td>\
+                    <td><span class="value Fri rowCntr' + counter + '"">0.00</span></td>\
+                    <td><span class="value weekend Sat rowCntr' + counter + '"">0.00</span></td>\
+                    <td><span class="value weekend Sun rowCntr' + counter + '">0.00</span></td>\
+                    <td><strong>24.00</strong></td>\
+                    <td><a href="#" class="delete" data-id="delete_'+counter+'">X</a></td>\
+                </tr>');
+    counter++;
+    $('#tblweek').append(newRow);
+
+});
+
+
+function CalculateTotal()
+{
+    var sumC = 0;
+    var sumR = 0;
+
+    $(".value .Mon").each()
+
+    for (var i = 1; i <= counter; i++) {
+        
+    }
+}
