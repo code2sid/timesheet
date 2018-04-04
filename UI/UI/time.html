@@ -37,7 +37,7 @@
 </head>
 <body>
 
-    <div class="topband clearfix">
+    <div class="topband clearfix" style="display:none;">
         <ul>
             <li><a class="active" href="javascript:void(0);">New</a></li>
             <li><a href="javascript:void(0);">Saved &nbsp;<span></span></a></li>
@@ -48,18 +48,18 @@
 
     <div class="contentWrapper">
         <div class="viewEdit clearfix">
-            <span>View/Edit Time For</span>
-            <select name="employeeName" id="employeeName">
+            <span>View/Edit Time For <strong>Sid</strong></span>
+            <!--<select name="employeeName" id="employeeName">
                 <option value="">Test</option>
                 <option value="">Test</option>
                 <option value="">Test</option>
                 <option value="">Test</option>
-            </select>
-            <select name="timePeriod" id="timePeriod">
+            </select>-->
+            <!--<select name="timePeriod" id="timePeriod">
                 <option value="">Daily</option>
                 <option value="">Weekly</option>
                 <option value="">Monthly</option>
-            </select>
+            </select>-->
             <div class="calendar">
                 <a class="previous" href="javascript: UpdateWeek(-7);"><img src="/images/previous2.png" alt="prev" title="Previous Week" height="25" width="20"></a>
                 <input type="button" name="date11Form" value="Current Week" onclick="javascript: setWeek();" class="btn-week">
@@ -69,10 +69,10 @@
         </div>
     </div>
     <div class="gridWrapper">
-        <div class="employeeInfo">
+        <!--<div class="employeeInfo">
             Test Hours from <span class="from" id="selectedWeek"></span>
             <a href="javascript:void(0);">Show All Comments</a>
-        </div>
+        </div>-->
         <div class="addRow clearfix">
             <a href="#" class="add" id="addRow">Add +</a>
             <select name="projects" id="projects"></select>
@@ -98,14 +98,14 @@
                 <tr>
                     <td width="25%"></td>
                     <td width="22%"><strong>Total</strong></td>
-                    <td width="6%">8.00</td>
-                    <td width="6%">8.00</td>
-                    <td width="6%">8.00</td>
-                    <td width="6%">0.00</td>
-                    <td width="6%">0.00</td>
-                    <td width="6%">0.00</td>
-                    <td width="6%">0.00</td>
-                    <td width="6%"><strong>24.00</strong></td>
+                    <td width="6%"><span id="MonTotal">0.00</span></td>
+                    <td width="6%"><span id="TueTotal">0.00</span></td>
+                    <td width="6%"><span id="WedTotal">0.00</span></td>
+                    <td width="6%"><span id="ThuTotal">0.00</span></td>
+                    <td width="6%"><span id="FriTotal">0.00</span></td>
+                    <td width="6%"><span id="SatTotal">0.00</span></td>
+                    <td width="6%"><span id="SunTotal">0.00</span></td>
+                    <td width="6%"><strong><span id="TOT">0.00</span></strong></td>
                     <td width="5%"></td>
                 </tr>
                 <tr>

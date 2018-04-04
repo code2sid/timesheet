@@ -80,6 +80,7 @@ $(document).on('change', '#projects', function () {
 
 $(document).on('click', '.delete', function () {
     $(this).parent().parent().remove();
+    CalculateTotal();
 });
 
 var counter = 1;
@@ -94,30 +95,52 @@ $(document).on('click', '#addRow', function () {
     var newRow = $('<tr>\
                     <td>' + $("#projects option:selected").text() + '</td>\
                     <td>' + $("#tasks option:selected").text() + '</td>\
-                    <td><span class="value Mon rowCntr'+ counter + '">8.00</span></td>\
+                    <td><span class="value Mon rowCntr' + counter + '">8.00</span></td>\
                     <td><span class="value Tue rowCntr'+ counter + '">8.00</span></td>\
                     <td><span class="value Wed rowCntr' + counter + '">8.00</span></td>\
-                    <td><span class="value Thu rowCntr' + counter + '"">0.00</span></td>\
-                    <td><span class="value Fri rowCntr' + counter + '"">0.00</span></td>\
-                    <td><span class="value weekend Sat rowCntr' + counter + '"">0.00</span></td>\
-                    <td><span class="value weekend Sun rowCntr' + counter + '">0.00</span></td>\
-                    <td><strong>24.00</strong></td>\
-                    <td><a href="#" class="delete" data-id="delete_'+counter+'">X</a></td>\
+                    <td><span class="value Thu rowCntr' + counter + '"">8.00</span></td>\
+                    <td><span class="value Fri rowCntr' + counter + '"">8.00</span></td>\
+                    <td><span class="value weekend Sat rowCntr' + counter + '"">2.00</span></td>\
+                    <td><span class="value weekend Sun rowCntr' + counter + '">2.00</span></td>\
+                    <td><strong><span class="value RowTotal' + counter + '"></span></strong></td>\
+                    <td><a href="#" class="delete" >X</a></td>\
                 </tr>');
     counter++;
     $('#tblweek').append(newRow);
-
+    CalculateTotal();
 });
 
 
-function CalculateTotal()
-{
-    var sumC = 0;
+function CalculateTotal() {
     var sumR = 0;
+    var tot = 0;
 
-    $(".value .Mon").each()
+    ColumnTotal("Mon");
+    ColumnTotal("Tue");
+    ColumnTotal("Wed");
+    ColumnTotal("Thu");
+    ColumnTotal("Fri");
+    ColumnTotal("Sat");
+    ColumnTotal("Sun");
 
     for (var i = 1; i <= counter; i++) {
-        
+        sumR = 0;
+        $('.rowCntr' + i).each(function () {
+            sumR += parseInt($(this).text())
+        });
+        $(".RowTotal" + i).text(sumR);
+        tot += sumR;
     }
+
+    $("#TOT").text(tot);
+
+
+}
+
+function ColumnTotal(day) {
+    var sumC = 0;
+    $('.value.' + day).each(function () {
+        sumC += parseFloat($(this).text())
+    });
+    $("#" + day + "Total").text(sumC);
 }
