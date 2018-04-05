@@ -1,5 +1,7 @@
-﻿var apiURL = 'http://localhost:50792/api/timesheet';
+var apiURL = 'http://localhost:50792/api/timesheet';
 var currentdt = new Date;
+var userId = 1;
+var projectTask = [{ projectId: 0, taskId: 0 }];
 
 function onchange() {
     currentdt = new Date($("#datepicker").val());
@@ -87,12 +89,27 @@ var counter = 1;
 $(document).on('click', '#addRow', function () {
     event.preventDefault();
 
-    if ($("#projects").val() == "0" && ($("#tasks").val() == "0" || $("#tasks").val() == null)) {
-        alert("Please select Project and its task");
+    if ($("#projects").val() == "0" || $("#tasks option:selected").val() == "0" || $("#tasks option:selected").val() == null) {
+        alert("Please select Project and its task !!!");
         return;
     }
 
+    var rec = projectTask.filter(function (el) {
+        return el.projectId == $("#projects option:selected").val() &&
+            el.taskId == $("#tasks option:selected").val();
+    });
+    if (rec.length == 0)
+        projectTask.push({ projectId: $("#projects option:selected").val(), taskId: $("#tasks option:selected").val() });
+    else {
+        alert("error in adding new project and task, as they are already exists !!! ");
+        return;
+    }
+
+
+
+
     var newRow = $('<tr>\
+                    <td><a href="#" class="delete" >X</a></td>\
                     <td>' + $("#projects option:selected").text() + '</td>\
                     <td>' + $("#tasks option:selected").text() + '</td>\
                     <td><span class="value Mon rowCntr' + counter + '">8.00</span></td>\
@@ -103,11 +120,12 @@ $(document).on('click', '#addRow', function () {
                     <td><span class="value weekend Sat rowCntr' + counter + '"">2.00</span></td>\
                     <td><span class="value weekend Sun rowCntr' + counter + '">2.00</span></td>\
                     <td><strong><span class="value RowTotal' + counter + '"></span></strong></td>\
-                    <td><a href="#" class="delete" >X</a></td>\
+                    <td><span class="value CommentsCntr' + counter + '">comments</span></td>\
                 </tr>');
     counter++;
     $('#tblweek').append(newRow);
     CalculateTotal();
+
 });
 
 
@@ -143,4 +161,25 @@ function ColumnTotal(day) {
         sumC += parseFloat($(this).text())
     });
     $("#" + day + "Total").text(sumC);
+}
+
+function createJson(projectDetail) {
+
+    var tran = {
+        userId: userId,
+        Projects: [{
+            projectId: projectDetail.Id,
+            taskId: projectDetail.taskId,
+            mon: projectDetail.monHrs,
+            tue: projectDetail.tueHrs,
+            wed: projectDetail.wedHrs,
+            thu: projectDetail.thuHrs,
+            fri: projectDetail.friHrs,
+            sat: projectDetail.satHrs,
+            sun: projectDetail.sunHrs
+
+        }]
+    }
+
+    tran.Projects.push(projectDetail);
 }
