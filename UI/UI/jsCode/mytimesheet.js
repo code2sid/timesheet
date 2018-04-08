@@ -105,21 +105,18 @@ $(document).on('click', '#addRow', function () {
         return;
     }
 
-
-
-
     var newRow = $('<tr>\
                     <td><a href="#" class="delete" >X</a></td>\
-                    <td>' + $("#projects option:selected").text() + '</td>\
-                    <td>' + $("#tasks option:selected").text() + '</td>\
-                    <td><span class="value Mon rowCntr' + counter + '">8.00</span></td>\
-                    <td><span class="value Tue rowCntr'+ counter + '">8.00</span></td>\
-                    <td><span class="value Wed rowCntr' + counter + '">8.00</span></td>\
-                    <td><span class="value Thu rowCntr' + counter + '"">8.00</span></td>\
-                    <td><span class="value Fri rowCntr' + counter + '"">8.00</span></td>\
-                    <td><span class="value weekend Sat rowCntr' + counter + '"">2.00</span></td>\
-                    <td><span class="value weekend Sun rowCntr' + counter + '">2.00</span></td>\
-                    <td><strong><span class="value RowTotal' + counter + '"></span></strong></td>\
+                    <td><span class="ProjectCntr' + counter + '">' + $("#projects option:selected").text() + '</span></td>\
+                    <td><span class="TaskCntr' + counter + '">' + $("#tasks option:selected").text() + '</span></td>\
+                    <td><input type="text" onkeyup="CalculateTotal();" class="value Mon rowCntr' + counter + '" value="0:00"></td>\
+                    <td><input type="text" onkeyup="CalculateTotal();" class="value Tue rowCntr' + counter + '" value="0:00"></td>\
+                    <td><input type="text" onkeyup="CalculateTotal();" class="value Wed rowCntr' + counter + '" value="0:00"></td>\
+                    <td><input type="text" onkeyup="CalculateTotal();" class="value Thu rowCntr' + counter + '" value="0:00"></td>\
+                    <td><input type="text" onkeyup="CalculateTotal();" class="value Fri rowCntr' + counter + '" value="0:00"></td>\
+                    <td><input type="text" onkeyup="CalculateTotal();" class="value weekend Sat rowCntr' + counter + '" value="0:00"></td>\
+                    <td><input type="text" onkeyup="CalculateTotal();" class="value weekend Sun rowCntr' + counter + '" value="0:00"></td>\
+                    <td><strong><span class="value RowTotal' + counter + '">0</span></strong></td>\
                     <td><span class="value CommentsCntr' + counter + '">comments</span></td>\
                 </tr>');
     counter++;
@@ -144,10 +141,12 @@ function CalculateTotal() {
     for (var i = 1; i <= counter; i++) {
         sumR = 0;
         $('.rowCntr' + i).each(function () {
-            sumR += parseInt($(this).text())
+            sumR += parseInt($(this).val())
         });
-        $(".RowTotal" + i).text(sumR);
-        tot += sumR;
+        if (sumR > 0) {
+            $(".RowTotal" + i).text(sumR);
+            tot += sumR;
+        }
     }
 
     $("#TOT").text(tot);
@@ -158,28 +157,43 @@ function CalculateTotal() {
 function ColumnTotal(day) {
     var sumC = 0;
     $('.value.' + day).each(function () {
-        sumC += parseFloat($(this).text())
+        sumC += parseFloat($(this).val())
     });
-    $("#" + day + "Total").text(sumC);
+    if (sumC > 0)
+        $("#" + day + "Total").text(sumC);
 }
 
-function createJson(projectDetail) {
+$(document).on('click', '.save', function () {
+    createJson();
+});
 
-    var tran = {
-        userId: userId,
-        Projects: [{
-            projectId: projectDetail.Id,
-            taskId: projectDetail.taskId,
-            mon: projectDetail.monHrs,
-            tue: projectDetail.tueHrs,
-            wed: projectDetail.wedHrs,
-            thu: projectDetail.thuHrs,
-            fri: projectDetail.friHrs,
-            sat: projectDetail.satHrs,
-            sun: projectDetail.sunHrs
+function createJson() {
 
-        }]
+    var projectDetails = { "collection": [{}] };
+    var dates = [
+            $("#MonDate").html() + ', 2018',
+            $("#TueDate").html() + ', 2018',
+            $("#WedDate").html() + ', 2018',
+            $("#ThuDate").html() + ', 2018',
+            $("#FriDate").html() + ', 2018',
+            $("#SatDate").html() + ', 2018',
+            $("#SunDate").html() + ', 2018'
+    ];
+
+    for (var i = 1; i < counter; i++) {
+        var pd = {
+            Id: 0,
+            Name: $(".ProjectCntr" + i).text(),
+            taskName: $(".TaskCntr" + i).text(),
+            dates: dates,
+            datesHrs: []
+        }
+
+        var inputs = $('.rowCntr' + i);
+        for (var datesCntr = 0; datesCntr < dates.length; datesCntr++) {
+            pd.datesHrs.push($(inputs[datesCntr]).val());
+        }
+
+        projectDetails.collection.push(pd);
     }
-
-    tran.Projects.push(projectDetail);
 }
