@@ -2,6 +2,8 @@ var apiURL = 'http://localhost:50792/api/timesheet';
 var currentdt = new Date;
 var userId = 1;
 var projectTask = [{ projectId: 0, taskId: 0 }];
+var projectDetails = { "collection": [{}] };
+var dates = [];
 
 function onchange() {
     currentdt = new Date($("#datepicker").val());
@@ -169,16 +171,14 @@ $(document).on('click', '.save', function () {
 
 function createJson() {
 
-    var projectDetails = { "collection": [{}] };
-    var dates = [
-            $("#MonDate").html() + ', 2018',
-            $("#TueDate").html() + ', 2018',
-            $("#WedDate").html() + ', 2018',
-            $("#ThuDate").html() + ', 2018',
-            $("#FriDate").html() + ', 2018',
-            $("#SatDate").html() + ', 2018',
-            $("#SunDate").html() + ', 2018'
-    ];
+    dates = [$("#MonDate").html() + ', 2018',
+    $("#TueDate").html() + ', 2018',
+    $("#WedDate").html() + ', 2018',
+    $("#ThuDate").html() + ', 2018',
+    $("#FriDate").html() + ', 2018',
+    $("#SatDate").html() + ', 2018',
+    $("#SunDate").html() + ', 2018'];
+   
 
     for (var i = 1; i < counter; i++) {
         var pd = {
