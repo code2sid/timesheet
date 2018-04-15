@@ -100,6 +100,10 @@ publish/
 #packages/
 packages.config
 APIs/packages/
+#APIs/packages/
+APIs/packages/*
+#APIs/packages/*
+APIs/API/packages.config
 
 # Windows Azure Build Output
 csx
