@@ -1,9 +1,12 @@
-var apiURL = 'http://localhost:50792/api/timesheet';
+window.apiURL = 'http://localhost:50792/api/timesheet';
 var currentdt = new Date;
-var userId = 1;
 var projectTask = [{ projectId: 0, taskId: 0 }];
 var projectDetails = { "collection": [{}] };
 var dates = [];
+
+var url = new URL(window.location.href);
+var userId = url.searchParams.get("userid");
+
 
 function onchange() {
     currentdt = new Date($("#datepicker").val());
@@ -43,11 +46,11 @@ function UpdateWeek(val) {
     setWeek(newDt);
 }
 
-function getProjects(userId) {
+function getProjects() {
+    $(".user_name").html(url.searchParams.get("name"));
 
-    $.ajax(apiURL + "/getprojects", {
+    $.ajax(apiURL + "/getprojects/" + userId, {
         type: "GET",
-        data: userId,
         contentType: "application/json",
     }).done(function (projects) {
         var projectOptions = '<option value="0">Select Project</option>';
@@ -178,11 +181,11 @@ function createJson() {
     $("#FriDate").html() + ', 2018',
     $("#SatDate").html() + ', 2018',
     $("#SunDate").html() + ', 2018'];
-   
+
 
     for (var i = 1; i < counter; i++) {
         var pd = {
-            Id: 0,
+            UserId: userId,
             Name: $(".ProjectCntr" + i).text(),
             taskName: $(".TaskCntr" + i).text(),
             dates: dates,

@@ -1,9 +1,6 @@
 ﻿using API.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace API.Controllers
@@ -23,18 +20,18 @@ namespace API.Controllers
             };
         }
 
-        [Route("GetProjects")]
+        [Route("GetProjects/{userId}")]
         public List<Project> GetProjects(int userId = 0)
         {
 
             //implement caching as well
-            return new List<Project> {
-                new Project { Id = 1001, Name = "Data Integration", UserId = 1 },
-                new Project {Id = 1002, Name = "Data Research", UserId = 1},
-                new Project {Id = 1003, Name = "Data Mining", UserId = 2},
-                new Project {Id = 1004, Name = "Research & Development", UserId = 2}
+            return (new List<Project> {
+                new Project { Id = 1001, Name = "Data Integration", UserId = 101 },
+                new Project {Id = 1002, Name = "Data Research", UserId = 101},
+                new Project {Id = 1003, Name = "Data Mining", UserId = 202},
+                new Project {Id = 1004, Name = "Research & Development", UserId = 202}
 
-            };
+            }).Where(p => userId == 0 || p.UserId == userId).ToList();
         }
 
         [Route("GetTasks")]
