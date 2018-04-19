@@ -104,7 +104,9 @@ APIs/packages/
 APIs/packages/*
 #APIs/packages/*
 APIs/API/packages.config
-
+Timesheet/packages/
+#Timesheet/packages/
+Timesheet/packages/*
 # Windows Azure Build Output
 csx
 *.build.csdef

@@ -5,8 +5,9 @@ var projectDetails = { "collection": [{}] };
 var dates = [];
 
 var url = new URL(window.location.href);
-var userId = url.searchParams.get("userid");
-
+var user = url.searchParams.get("user");
+user = atob(user).split("~");
+debugger;
 
 function onchange() {
     currentdt = new Date($("#datepicker").val());
@@ -47,9 +48,9 @@ function UpdateWeek(val) {
 }
 
 function getProjects() {
-    $(".user_name").html(url.searchParams.get("name"));
+    $(".user_name").html(user[0]);
 
-    $.ajax(apiURL + "/getprojects/" + userId, {
+    $.ajax(apiURL + "/getprojects/" + user[1], {
         type: "GET",
         contentType: "application/json",
     }).done(function (projects) {
@@ -185,7 +186,7 @@ function createJson() {
 
     for (var i = 1; i < counter; i++) {
         var pd = {
-            UserId: userId,
+            UserId: user[1],
             Name: $(".ProjectCntr" + i).text(),
             taskName: $(".TaskCntr" + i).text(),
             dates: dates,
