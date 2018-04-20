@@ -1,0 +1,56 @@
+﻿@model Timesheet_demo.ViewModels.HomeViewModel
+<h1>@Model.Title</h1>
+
+<p>
+    <a asp-controller="Home" asp-action="CreateNew">Create new</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                "Name"
+            </th>
+            <th>
+                "EmployeeId"
+            </th>
+            <th>
+                "Role"
+            </th>
+            <th>
+                "Client_id""
+            </th>
+            <th>
+                "Project_id""
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var emp in Model.Employees)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => emp.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => emp.Employee_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => emp.Role)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => emp.Client_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => emp.Project_id)
+            </td>
+            <td>
+                <a asp-controller="Home" asp-action="Edit" asp-route-id="@emp.Id">Edit</a> |
+                <a asp-controller="Home" asp-action="Details" asp-route-id="@emp.Id">Details</a> |
+                <a asp-controller="Home" asp-action="Delete" asp-route-id="@emp.Id">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+

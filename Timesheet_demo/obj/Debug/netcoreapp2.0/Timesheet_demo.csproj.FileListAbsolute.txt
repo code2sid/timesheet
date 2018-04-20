@@ -1,0 +1,11 @@
+c:\users\loagrawa\source\repos\Timesheet_demo\Timesheet_demo\bin\Debug\netcoreapp2.0\Timesheet_demo.deps.json
+c:\users\loagrawa\source\repos\Timesheet_demo\Timesheet_demo\bin\Debug\netcoreapp2.0\Timesheet_demo.runtimeconfig.json
+c:\users\loagrawa\source\repos\Timesheet_demo\Timesheet_demo\bin\Debug\netcoreapp2.0\Timesheet_demo.runtimeconfig.dev.json
+c:\users\loagrawa\source\repos\Timesheet_demo\Timesheet_demo\bin\Debug\netcoreapp2.0\Timesheet_demo.dll
+c:\users\loagrawa\source\repos\Timesheet_demo\Timesheet_demo\bin\Debug\netcoreapp2.0\Timesheet_demo.pdb
+c:\users\loagrawa\source\repos\Timesheet_demo\Timesheet_demo\obj\Debug\netcoreapp2.0\Timesheet_demo.csproj.CoreCompileInputs.cache
+c:\users\loagrawa\source\repos\Timesheet_demo\Timesheet_demo\obj\Debug\netcoreapp2.0\Timesheet_demo.AssemblyInfoInputs.cache
+c:\users\loagrawa\source\repos\Timesheet_demo\Timesheet_demo\obj\Debug\netcoreapp2.0\Timesheet_demo.AssemblyInfo.cs
+c:\users\loagrawa\source\repos\Timesheet_demo\Timesheet_demo\obj\Debug\netcoreapp2.0\Timesheet_demo.dll
+c:\users\loagrawa\source\repos\Timesheet_demo\Timesheet_demo\obj\Debug\netcoreapp2.0\Timesheet_demo.pdb
+C:\Users\loagrawa\source\repos\Timesheet_demo\Timesheet_demo\obj\Debug\netcoreapp2.0\Timesheet_demo.csprojResolveAssemblyReference.cache

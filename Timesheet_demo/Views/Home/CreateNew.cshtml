@@ -1,0 +1,45 @@
+﻿@model Timesheet_demo.Models.Employee
+
+<form asp-action="AddIndex" method="post" class="form-horizontal" role="form">
+
+    <div class="form-group">
+        <label asp-for="Name" class="col-mid-2 control-label"></label>
+        <div class="col-md-5">
+            <input asp-for="Name" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Employee_id" class="col-mid-2 control-label"></label>
+        <div class="col-md-5">
+            <input asp-for="Employee_id" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Role" class="col-mid-2 control-label"></label>
+        <div class="col-md-5">
+            <input asp-for="Role" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Client_id" class="col-mid-2 control-label"></label>
+        <div class="col-md-5">
+            <input asp-for="Client_id" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Project_id" class="col-mid-2 control-label"></label>
+        <div class="col-md-5">
+            <input asp-for="Project_id" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-5">
+            <input type="submit" class="btn btn-primary" value="Add employee" />
+        </div>
+    </div>
+</form>
