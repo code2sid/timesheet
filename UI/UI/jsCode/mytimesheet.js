@@ -1,4 +1,4 @@
-window.apiURL = 'http://localhost:50792/api/timesheet';
+var apiURL = 'http://localhost:50792/api/timesheet';
 var currentdt = new Date;
 var projectTask = [{ projectId: 0, taskId: 0 }];
 var projectDetails = { "collection": [{}] };
@@ -6,8 +6,12 @@ var dates = [];
 
 var url = new URL(window.location.href);
 var user = url.searchParams.get("user");
-user = atob(user).split("~");
+user = user.split("~0/");
 debugger;
+if (user.length > 0) {
+    user[0] = atob(user[0]);
+    user[1] = atob(user[1]);
+}
 
 function onchange() {
     currentdt = new Date($("#datepicker").val());

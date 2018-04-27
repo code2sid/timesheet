@@ -59,43 +59,65 @@ namespace API.Controllers
             };
         }
 
-        [Route("InsertData")]
-        public bool InsertData(object insertData)
+        [Route("InsertEntitiesData/{d}")]
+        [HttpPost]
+        public bool InsertEntitiesData(DataEntities d = null)
         {
             //users
-            //var users = insertData.collection["users"];
-
-            var users = new List<User>();
-            users.Add(new User { Id = 101, Name = "sid", RoleId = 1, Password = "sid@123" });
-            users.Add(new User { Id = 102, Name = "rahul", RoleId = 1, Password = "rahul@123" });
-            users.Add(new User { Id = 103, Name = "ruchi", RoleId = 2, Password = "ruchi@123" });
-            users.Add(new User { Id = 104, Name = "sugi", RoleId = 2, Password = "sugi@123" });
-            users.ForEach(u => appObj.Users.Add(u));
+            d.Users.ForEach(u =>
+            {
+                var exitstingUsr = appObj.Users.Where(usr => usr.Name == u.Name && usr.Password == u.Password).FirstOrDefault();
+                if (exitstingUsr == null)
+                    appObj.Users.Add(u);
+            });
 
             //projects
-            var projects = new List<Project> {
-                new Project { Id = 1001, Name = "Data Integration", UserId = 101 },
-                new Project {Id = 1002, Name = "Data Research", UserId = 101},
-                new Project {Id = 1003, Name = "Data Mining", UserId = 202},
-                new Project {Id = 1004, Name = "Research & Development", UserId = 202}};
-            projects.ForEach(p => appObj.Projects.Add(p));
+            d.Projects.ForEach(p =>
+            {
+                var exitstingProject = appObj.Projects.Where(pro => pro.Name == p.Name && p.UserId == pro.UserId).FirstOrDefault();
+                if (exitstingProject == null)
+                    appObj.Projects.Add(p);
+            });
 
             //tasks
-            var tasks = new List<Task> {
-                new Task { Id = 1, Name = "Billable Task", TaskTypeId = 1, ProjectId = 1001 },
-                new Task { Id = 2, Name = "Leave", TaskTypeId = 2, ProjectId = 1001},
-                new Task { Id = 2, Name = "Public Holiday", TaskTypeId = 2, ProjectId = 1001}
-            };
-            tasks.ForEach(t => appObj.Tasks.Add(t));
+            d.Tasks.ForEach(t =>
+            {
+                var exitstingTask = appObj.Tasks.Where(task => task.Name == t.Name && task.TaskTypeId == t.TaskTypeId).FirstOrDefault();
+                if (exitstingTask == null)
+                    appObj.Tasks.Add(t);
+            });
 
-            var taskTypes = new List<TaskType> {
-                new TaskType { Id = 1, Name = "Billable" },
-                new TaskType {Id = 2, Name = "Non-Billable"}
-            };
-            taskTypes.ForEach(tt => appObj.TaskTypes.Add(tt));
+            //taskTypes
+            d.TaskTypes.ForEach(tt =>
+            {
+                var exitstingTaskType = appObj.TaskTypes.Where(taskType => taskType.Name == tt.Name).FirstOrDefault();
+                if (exitstingTaskType == null)
+                    appObj.TaskTypes.Add(tt);
+            });
 
-            appObj.SaveChanges();
+            try
+            {
+                appObj.SaveChanges();
+            }
+            catch (System.Exception ex)
+            {
+                return false;
+            }
+
             return true;
+        }
+
+        [Route("GetEntitiesData")]
+        public DataEntities GetEntitiesData()
+        {
+            return new DataEntities
+            {
+                Users = appObj.Users.ToList(),
+                Projects = appObj.Projects.ToList(),
+                Tasks = appObj.Tasks.ToList(),
+                TaskTypes = appObj.TaskTypes.ToList()
+            };
+
         }
 
     }

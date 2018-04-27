@@ -60,6 +60,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DataEntities.html" />
+    <Content Include="DataEntries.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -78,6 +80,7 @@
     <Content Include="images\previous2.png" />
     <Content Include="images\trash.png" />
     <Content Include="images\upload_excel.png" />
+    <Content Include="jsCode\DataEntites.js" />
     <Content Include="jsCode\login.js" />
     <Content Include="jsCode\mytimesheet.js" />
     <Content Include="js\jquery-1.12.4.js" />

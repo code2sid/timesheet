@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>DataEntites</title>
+    <link rel="stylesheet" type="text/css" href="style/style.css">
+    <link href="style/jquery-ui.css" rel="stylesheet" />
+
+    <script src="js/jquery-1.12.4.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="jsCode/DataEntites.js"></script>
+</head>
+<body>
+    <div class="addRow clearfix" style="width:50%">
+        <a href="#" class="add" id="GetData">GetData</a>
+    </div>
+    <div class="addRow clearfix" style="width:50%">
+        <a href="#" class="add" id="AddData">AddData</a>
+    </div>
+
+    <div class="table-responsive">
+        Users:
+        <table id="tblUsers" class="tblOffer" width="50%" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+                <th width="4%">Id</th>
+                <th width="32%">Name</th>
+                <th width="32%">Role</th>
+                <th width="32%">Password</th>
+            </tr>
+        </table>
+
+        <br />
+        Projects:
+        <table id="tblProjects" class="tblOffer" width="50%" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+                <th width="4%">Id</th>
+                <th width="48%">Name</th>
+                <th width="48%">User</th>
+            </tr>
+        </table>
+
+        <br />
+        Tasks:
+        <table id="tblTasks" class="tblOffer" width="50%" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+                <th width="4%">Id</th>
+                <th width="32%">Name</th>
+                <th width="32%">Project</th>
+                <th width="32%">Type</th>
+            </tr>
+        </table>
+
+
+        <br />
+        Task Types:
+        <table id="tblTaskTypes" class="tblOffer" width="50%" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+                <th width="4%">Id</th>
+                <th width="32%">Name</th>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

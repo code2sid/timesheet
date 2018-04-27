@@ -1,0 +1,19 @@
+DataEntries: {
+Users:[
+{Id:1,Name:'Sid',RoleId:1,Password:'sid@123'},
+{Id:2,Name:'Sid',RoleId:1,Password:'sid@123'},
+
+],
+Projects:[
+{Id:1,UserId:1,Name:'Data Integration for ICRA'},
+{Id:1,UserId:1,Name:'Data Ananlysis for J&J'},
+],
+Tasks:[
+{Id:1,Name:'Billable',TaskTypeId:'1'},
+{Id:1,Name:'Billable',TaskTypeId:''1'},
+],
+TaskTypes:[
+{Id:1,Name:'Billable'},
+{Id:2,Name:'Leave'},
+{Id:3,Name:'Holiday'},
+]};
