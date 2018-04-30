@@ -11,8 +11,12 @@ debugger;
 if (user.length > 0) {
     user[0] = atob(user[0]);
     user[1] = atob(user[1]);
+    user[2] = atob(user[2]);
 }
 
+$("#divAdmin").hide();
+if (user[2] == 1)
+    $("#divAdmin").show();
 function onchange() {
     currentdt = new Date($("#datepicker").val());
     setWeek(currentdt);

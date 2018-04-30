@@ -14,7 +14,7 @@ $(document).on('click', '#login', function () {
             alert("not a valid user");
 
         else {
-            var mydata = btoa(user.Name) + "~0/" + btoa(user.Id) + "~0/" + btoa((new Date()).getDate() + (new Date()).getTime());
+            var mydata = btoa(user.Name) + "~0/" + btoa(user.Id) + "~0/" + btoa(user.RoleId) + "~0/" + btoa((new Date()).getDate() + (new Date()).getTime());
             window.location = "/time.html?user=" + mydata;
         }
 

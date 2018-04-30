@@ -1,5 +1,5 @@
 ﻿window.apiURL = 'http://localhost:50792/api/timesheet';
-
+var jsonresponse;
 $(document).on('click', '#GetData', function () {
     $.ajax(apiURL + "/GetEntitiesData", {
         type: "GET",
@@ -60,15 +60,33 @@ $(document).on('click', '#GetData', function () {
 });
 
 $(document).on('click', '#AddData', function () {
+    var insertJson = JSON.stringify({ d: jsonresponse });
     $.ajax(apiURL + "/InsertEntitiesData", {
         type: "POST",
+        data: insertJson,
         contentType: "application/json",
     }).done(function (de) {
 
-        var users = de.Users;
-        debugger;
+        alert("Data Inserted!!!")
 
     }).fail(function (xhr, status, error) {
         alert("Could not reach the API: " + error);
     });
+});
+function loadJSON(callback) {
+
+    var xobj = new XMLHttpRequest();
+    xobj.overrideMimeType("application/json");
+    xobj.open('GET', 'src/assets/DataEntries.json', true);
+    xobj.onreadystatechange = function () {
+        if (xobj.readyState == 4 && xobj.status == "200") {
+            callback(xobj.responseText);
+        }
+    }
+    xobj.send(null);
+}
+
+loadJSON(function (response) {
+    jsonresponse = response;
+
 });

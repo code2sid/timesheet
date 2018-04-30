@@ -146,14 +146,20 @@
     <Compile Include="Migrations\201804220624077_update-Collections.Designer.cs">
       <DependentUpon>201804220624077_update-Collections.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804301742109_update-new-collection.cs" />
+    <Compile Include="Migrations\201804301742109_update-new-collection.Designer.cs">
+      <DependentUpon>201804301742109_update-new-collection.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AppDbContext.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\DataEntities.cs" />
     <Compile Include="Models\Project.cs" />
+    <Compile Include="Models\ProjectTasks.cs" />
     <Compile Include="Models\Task.cs" />
     <Compile Include="Models\TaskType.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserProjects.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Supports\StringCipher.cs" />
   </ItemGroup>
@@ -172,6 +178,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201804220624077_update-Collections.resx">
       <DependentUpon>201804220624077_update-Collections.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804301742109_update-new-collection.resx">
+      <DependentUpon>201804301742109_update-new-collection.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

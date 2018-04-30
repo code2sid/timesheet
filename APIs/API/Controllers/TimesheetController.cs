@@ -15,54 +15,40 @@ namespace API.Controllers
         {
             //implement caching as well
             return new List<Client> {
-                new Client { Id = 1, Name = "J&J", Projects = GetProjects(1) },
-                new Client { Id = 2, Name = "Jhonson Controls", Projects = GetProjects(2) },
-                new Client { Id = 2, Name = "Markel", Projects = GetProjects(1) }
+                new Client { Id = 1, Name = "J&J", Projects = GetUserProjects(1) },
+                new Client { Id = 2, Name = "Jhonson Controls", Projects = GetUserProjects(2) },
+                new Client { Id = 2, Name = "Markel", Projects = GetUserProjects(1) }
             };
         }
 
         [Route("GetProjects/{userId}")]
-        public List<Project> GetProjects(int userId = 0)
+        public List<Project> GetUserProjects(int userId = 0)
         {
-
-            //implement caching as well
-            return (new List<Project> {
-                new Project { Id = 1001, Name = "Data Integration", UserId = 101 },
-                new Project {Id = 1002, Name = "Data Research", UserId = 101},
-                new Project {Id = 1003, Name = "Data Mining", UserId = 202},
-                new Project {Id = 1004, Name = "Research & Development", UserId = 202}
-
-            }).Where(p => userId == 0 || p.UserId == userId).ToList();
+            var projectids = appObj.UserProjects.Where(up => up.UserId == userId).Select(p => p.ProjectId);
+            return appObj.Projects.Where(p => projectids.Contains(p.Id)).ToList();
         }
 
         [Route("GetTasks")]
         public List<Task> GetTasks(int projectId = 0)
         {
-            //implement caching as well
-            var tasks = new List<Task> {
-                new Task { Id = 1, Name = "Billable Task", TaskTypeId = 1, ProjectId = 1001 },
-                new Task { Id = 2, Name = "Leave", TaskTypeId = 2, ProjectId = 1001},
-                new Task { Id = 2, Name = "Public Holiday", TaskTypeId = 2, ProjectId = 1001}
-            };
 
-            tasks.ForEach(t => t.TaskType = GetTaskTypes(t.TaskTypeId).FirstOrDefault());
-            return tasks.Where(t => t.ProjectId == projectId).ToList();
+            var taskIds = appObj.ProjectTasks.Where(pt => pt.ProjectId == projectId).Select(p => p.TaskId);
+            return appObj.Tasks.Where(t => taskIds.Contains(t.Id)).ToList();
         }
 
         [Route("GetTasksType")]
         public List<TaskType> GetTaskTypes(int taskTypeId = 0)
         {
             //implement caching as well
-            return new List<TaskType> {
-                new TaskType { Id = 1, Name = "Billable" },
-                new TaskType {Id = 2, Name = "Non-Billable"}
-            };
+            return appObj.TaskTypes.ToList();
         }
 
-        [Route("InsertEntitiesData/{d}")]
+        [Route("InsertEntitiesData")]
         [HttpPost]
-        public bool InsertEntitiesData(DataEntities d = null)
+        public bool InsertEntitiesData(DataEntities d)
         {
+            if (d == null)
+                return false;
             //users
             d.Users.ForEach(u =>
             {
@@ -74,17 +60,33 @@ namespace API.Controllers
             //projects
             d.Projects.ForEach(p =>
             {
-                var exitstingProject = appObj.Projects.Where(pro => pro.Name == p.Name && p.UserId == pro.UserId).FirstOrDefault();
+                var exitstingProject = appObj.Projects.Where(pro => pro.Name == p.Name).FirstOrDefault();
                 if (exitstingProject == null)
                     appObj.Projects.Add(p);
+            });
+
+            //UserProjects
+            d.UserProjects.ForEach(p =>
+            {
+                var exitstingUserProject = appObj.UserProjects.Where(pro => pro.ProjectId == p.ProjectId && pro.UserId == p.UserId).FirstOrDefault();
+                if (exitstingUserProject == null)
+                    appObj.UserProjects.Add(p);
             });
 
             //tasks
             d.Tasks.ForEach(t =>
             {
-                var exitstingTask = appObj.Tasks.Where(task => task.Name == t.Name && task.TaskTypeId == t.TaskTypeId).FirstOrDefault();
+                var exitstingTask = appObj.Tasks.Where(task => task.Name == t.Name).FirstOrDefault();
                 if (exitstingTask == null)
                     appObj.Tasks.Add(t);
+            });
+
+            //ProjectTasks
+            d.ProjectTasks.ForEach(t =>
+            {
+                var exitstingProjectTask = appObj.ProjectTasks.Where(task => task.ProjectId == t.ProjectId && task.Id == t.Id).FirstOrDefault();
+                if (exitstingProjectTask == null)
+                    appObj.ProjectTasks.Add(t);
             });
 
             //taskTypes

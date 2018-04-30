@@ -62,6 +62,7 @@
   <ItemGroup>
     <Content Include="DataEntities.html" />
     <Content Include="DataEntries.json" />
+    <Content Include="src\assets\DataEntries.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
