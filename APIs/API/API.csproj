@@ -118,8 +118,10 @@
     <Compile Include="Models\ProjectTasks.cs" />
     <Compile Include="Models\Task.cs" />
     <Compile Include="Models\TaskType.cs" />
+    <Compile Include="Models\TimeSheetApproval.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserProjects.cs" />
+    <Compile Include="Models\UserTimeSheet.cs" />
     <Compile Include="Models\WeekDates.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Supports\StringCipher.cs" />
