@@ -98,7 +98,8 @@ publish/
 # NuGet Packages Directory
 ## TODO: If you have NuGet Package Restore enabled, uncomment the next line
 #packages/
-packages.config
+#packages.config
+*packages.config
 APIs/packages/
 #APIs/packages/
 APIs/packages/*
@@ -107,6 +108,10 @@ APIs/API/packages.config
 Timesheet/packages/
 #Timesheet/packages/
 Timesheet/packages/*
+APIs/API/packages.config
+Timesheet/.vs/*
+#Timesheet/.vs/
+
 # Windows Azure Build Output
 csx
 *.build.csdef
@@ -156,7 +161,10 @@ ehthumbs.db
 
 # Folder config file
 Desktop.ini
-
+*Web.Config
+#Web.Config
+#APIs/API/Web.config
+*APIs/API/Web.config
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
 
