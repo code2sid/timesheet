@@ -22,35 +22,44 @@ $(document).on('click', '#GetData', function () {
             row = "<tr> \
                 <td>" + de.Projects[i].Id + "</td>\
                 <td>" + de.Projects[i].Name + "</td>\
-                <td>" + de.Projects[i].UserId + "</td>\
             </tr>"
             $("#tblProjects").append(row);
         }
 
         row = "";
-        for (var i = 0; i < de.Projects.length; i++) {
+        for (var i = 0; i < de.UserProjects.length; i++) {
             row = "<tr> \
-                <td>" + de.Projects[i].Id + "</td>\
-                <td>" + de.Projects[i].Name + "</td>\
-                <td>" + de.Projects[i].UserId + "</td>\
+                <td>" + de.UserProjects[i].Id + "</td>\
+                <td>" + de.UserProjects[i].ProjectId + "</td>\
+                <td>" + de.UserProjects[i].UserId + "</td>\
             </tr>"
-            $("#tblProjects").append(row);
+            $("#tblUserProjects").append(row);
         }
         row = "";
         for (var i = 0; i < de.Tasks.length; i++) {
             row = "<tr> \
                 <td>" + de.Tasks[i].Id + "</td>\
                 <td>" + de.Tasks[i].Name + "</td>\
-                <td>" + de.Tasks[i].ProjectId + "</td>\
                 <td>" + de.Tasks[i].TaskTypeId + "</td>\
             </tr>"
             $("#tblTasks").append(row);
         }
+
         row = "";
-        for (var i = 0; i < de.TaskType.length; i++) {
+        for (var i = 0; i < de.ProjectTasks.length; i++) {
             row = "<tr> \
-                <td>" + de.TaskType[i].Id + "</td>\
-                <td>" + de.TaskType[i].Name + "</td>\
+                <td>" + de.ProjectTasks[i].Id + "</td>\
+                <td>" + de.ProjectTasks[i].ProjectId + "</td>\
+                <td>" + de.ProjectTasks[i].TaskId + "</td>\
+            </tr>"
+            $("#tblProjectTasks").append(row);
+        }
+
+        row = "";
+        for (var i = 0; i < de.TaskTypes.length; i++) {
+            row = "<tr> \
+                <td>" + de.TaskTypes[i].Id + "</td>\
+                <td>" + de.TaskTypes[i].Name + "</td>\
             </tr>"
             $("#tblTaskTypes").append(row);
         }
