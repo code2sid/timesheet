@@ -79,6 +79,14 @@ namespace API.Controllers
             return appObj.TaskTypes.ToList();
         }
 
+        [Route("SaveTimeSheet")]
+        [HttpPost]
+        public bool InsertTimeSheetData(List<UserTimeSheetRequest> request)
+        {
+
+            return true;
+        }
+
         [Route("InsertEntitiesData")]
         [HttpPost]
         public bool InsertEntitiesData(DataEntities d)

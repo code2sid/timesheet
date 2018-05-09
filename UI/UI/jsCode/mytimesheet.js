@@ -3,11 +3,11 @@ var currentdt = new Date;
 var projectTask = [{ projectId: 0, taskId: 0 }];
 var projectDetails = { "collection": [{}] };
 var dates = [];
+$("#imgloader").hide();
 
 var url = new URL(window.location.href);
 var user = url.searchParams.get("user");
 user = user.split("~0/");
-debugger;
 if (user.length > 0) {
     user[0] = atob(user[0]);
     user[1] = atob(user[1]);
@@ -57,6 +57,7 @@ function UpdateWeek(val) {
 
 function getProjects() {
     $(".user_name").html(user[0]);
+    $("#imgloader").show();
 
     $.ajax(apiURL + "/getprojects/" + user[1], {
         type: "GET",
@@ -68,19 +69,23 @@ function getProjects() {
         }
 
         $('#projects').html(projectOptions);
+        $("#imgloader").hide();
 
     }).fail(function (xhr, status, error) {
+        $("#imgloader").hide();
         alert("Could not reach the API: " + error);
     });
 
 }
 
 $(document).on('change', '#projects', function () {
+    $("#imgloader").show();
     $.ajax(apiURL + "/gettasks", {
         type: "GET",
         data: { projectId: this.value },
         contentType: "application/json",
     }).done(function (tasks) {
+        $("#imgloader").hide();
         var taskOptions = '<option value="0">Select Task</option>';
         for (var i = 0; i < tasks.length; i++) {
             taskOptions += '<option value="' + tasks[i].Id + '">' + tasks[i].Name + '</option>';
@@ -89,6 +94,7 @@ $(document).on('change', '#projects', function () {
         $('#tasks').html(taskOptions);
 
     }).fail(function (xhr, status, error) {
+        $("#imgloader").hide();
         alert("Could not reach the API: " + error);
     });
 });
@@ -121,8 +127,10 @@ $(document).on('click', '#addRow', function () {
 
     var newRow = $('<tr>\
                     <td><a href="#" class="delete" >X</a></td>\
-                    <td><span class="ProjectCntr' + counter + '">' + $("#projects option:selected").text() + '</span></td>\
-                    <td><span class="TaskCntr' + counter + '">' + $("#tasks option:selected").text() + '</span></td>\
+                    <td><span class="ProjectCntr' + counter + '">' + $("#projects option:selected").text() + '</span>\
+                    <input type="hidden" class="ProjectIdCntr' + counter + '" value="' + $("#projects option:selected").val() + '"/></td >\
+                    <td><span class="TaskCntr' + counter + '">' + $("#tasks option:selected").text() + '</span>\
+                    <input type="hidden" class="TaskIdCntr' + counter + '" value="' + $("#tasks option:selected").val() + '"/></td >\
                     <td><input type="text" onkeyup="CalculateTotal();" class="value Mon rowCntr' + counter + '" value="0:00"></td>\
                     <td><input type="text" onkeyup="CalculateTotal();" class="value Tue rowCntr' + counter + '" value="0:00"></td>\
                     <td><input type="text" onkeyup="CalculateTotal();" class="value Wed rowCntr' + counter + '" value="0:00"></td>\
@@ -178,7 +186,24 @@ function ColumnTotal(day) {
 }
 
 $(document).on('click', '.save', function () {
+    $("#imgloader").show();
     createJson();
+    if (projectDetails.collection[0].UserId == undefined)
+        projectDetails.collection.splice(0, 1);
+    $.ajax(apiURL + "/SaveTimeSheet", {
+        type: "POST",
+        data: { request: projectDetails },
+        contentType: "application/json",
+    }).done(function (isInserted) {
+        $("#imgloader").hide();
+        if (isInserted)
+            alert("Data Saved Successfully");
+
+    }).fail(function (xhr, status, error) {
+        $("#imgloader").hide();
+        alert("Could not reach the API: " + error);
+    });
+
 });
 
 function createJson() {
@@ -195,15 +220,15 @@ function createJson() {
     for (var i = 1; i < counter; i++) {
         var pd = {
             UserId: user[1],
-            Name: $(".ProjectCntr" + i).text(),
-            taskName: $(".TaskCntr" + i).text(),
-            dates: dates,
-            datesHrs: []
+            ProjectId: $(".ProjectIdCntr" + i).val(),
+            TaskId: $(".TaskIdCntr" + i).val(),
+            FillDates: dates,
+            DatesHrs: []
         }
 
         var inputs = $('.rowCntr' + i);
         for (var datesCntr = 0; datesCntr < dates.length; datesCntr++) {
-            pd.datesHrs.push($(inputs[datesCntr]).val());
+            pd.DatesHrs.push($(inputs[datesCntr]).val());
         }
 
         projectDetails.collection.push(pd);

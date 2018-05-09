@@ -17,4 +17,17 @@ namespace API.Models
         public bool IsSubmitted { get; set; }
         public string Comments { get; set; }
     }
+
+    public class UserTimeSheetRequest
+    {
+        public int UserId { get; set; }
+        public int ProjectId { get; set; }
+        public int TaskId { get; set; }
+        public List<DateTime> FillDates { get; set; }
+        public List<int> DatesHrs { get; set; }
+        public bool IsSaved { get; set; }
+        public bool IsSubmitted { get; set; }
+        public string Comments { get; set; }
+
+    }
 }
