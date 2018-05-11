@@ -114,6 +114,18 @@
     <Compile Include="Migrations\201805111132006_UserTimeSheet.Designer.cs">
       <DependentUpon>201805111132006_UserTimeSheet.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805111357497_delete-all.cs" />
+    <Compile Include="Migrations\201805111357497_delete-all.Designer.cs">
+      <DependentUpon>201805111357497_delete-all.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805111359099_add-all.cs" />
+    <Compile Include="Migrations\201805111359099_add-all.Designer.cs">
+      <DependentUpon>201805111359099_add-all.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805111409242_update-UserTimeSheet.cs" />
+    <Compile Include="Migrations\201805111409242_update-UserTimeSheet.Designer.cs">
+      <DependentUpon>201805111409242_update-UserTimeSheet.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AppDbContext.cs" />
     <Compile Include="Models\Client.cs" />
@@ -151,6 +163,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805111132006_UserTimeSheet.resx">
       <DependentUpon>201805111132006_UserTimeSheet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805111357497_delete-all.resx">
+      <DependentUpon>201805111357497_delete-all.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805111359099_add-all.resx">
+      <DependentUpon>201805111359099_add-all.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805111409242_update-UserTimeSheet.resx">
+      <DependentUpon>201805111409242_update-UserTimeSheet.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

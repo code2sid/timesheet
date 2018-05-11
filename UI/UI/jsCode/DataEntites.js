@@ -1,6 +1,8 @@
 ﻿window.apiURL = 'http://localhost:50792/api/timesheet';
 var jsonresponse;
+
 $(document).on('click', '#GetData', function () {
+    $("#imgloader").show();
     $.ajax(apiURL + "/GetEntitiesData", {
         type: "GET",
         contentType: "application/json",
@@ -66,33 +68,25 @@ $(document).on('click', '#GetData', function () {
     }).fail(function (xhr, status, error) {
         alert("Could not reach the API: " + error);
     });
+
+    $("#imgloader").hide();
+
 });
 
 $(document).on('click', '#AddData', function () {
-    var insertJson = JSON.stringify({ d: jsonresponse });
-    //$.ajax(apiURL + "/InsertEntitiesData", {
-    //    type: "POST",
-    //    data: insertJson,
-    //    contentType: "application/json",
-    //}).done(function (de) {
-
-    //    alert("Data Inserted!!!")
-
-    //}).fail(function (xhr, status, error) {
-    //    alert("Could not reach the API: " + error);
-    //});
+    $("#imgloader").show();
 
     $.ajax({
         type: "POST",
         url: apiURL + "/InsertEntitiesData",
-        async: true,
-        cache: false,
+        contentType: 'application/json',
         type: 'POST',
         data: jsonresponse,
         dataType: "json",
         success: function (result) {
-            $("#imgloader").hide();
-            alert("Data Saved Successfully");
+            if (result)
+                alert("Data Saved Successfully");
+
         },
         error: function (jqXHR, exception) {
             $("#imgloader").hide();
@@ -101,6 +95,8 @@ $(document).on('click', '#AddData', function () {
 
         }
     });
+
+    $("#imgloader").hide();
 
 });
 function loadJSON(callback) {

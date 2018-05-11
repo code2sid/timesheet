@@ -187,6 +187,7 @@ function ColumnTotal(day) {
 
 $(document).on('click', '.save', function () {
     $("#imgloader").show();
+    projectDetails = [];
     createJson();
     $.ajax({
         type: 'POST',
