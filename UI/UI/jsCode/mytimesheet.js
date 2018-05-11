@@ -1,7 +1,7 @@
 var apiURL = 'http://localhost:50792/api/timesheet';
 var currentdt = new Date;
 var projectTask = [{ projectId: 0, taskId: 0 }];
-var projectDetails = { "collection": [{}] };
+var projectDetails = [];
 var dates = [];
 $("#imgloader").hide();
 
@@ -188,20 +188,22 @@ function ColumnTotal(day) {
 $(document).on('click', '.save', function () {
     $("#imgloader").show();
     createJson();
-    if (projectDetails.collection[0].UserId == undefined)
-        projectDetails.collection.splice(0, 1);
-    $.ajax(apiURL + "/SaveTimeSheet", {
-        type: "POST",
-        data: { request: projectDetails },
-        contentType: "application/json",
-    }).done(function (isInserted) {
-        $("#imgloader").hide();
-        if (isInserted)
+    $.ajax({
+        type: 'POST',
+        contentType: 'application/json',
+        url: apiURL + "/SaveTimeSheet",
+        data: JSON.stringify(projectDetails),
+        dataType: "json",
+        success: function (result) {
+            $("#imgloader").hide();
             alert("Data Saved Successfully");
+        },
+        error: function (jqXHR, exception) {
+            $("#imgloader").hide();
+            alert(exception);
+            alert("Could not reach the API: " + error);
 
-    }).fail(function (xhr, status, error) {
-        $("#imgloader").hide();
-        alert("Could not reach the API: " + error);
+        }
     });
 
 });
@@ -219,18 +221,18 @@ function createJson() {
 
     for (var i = 1; i < counter; i++) {
         var pd = {
-            UserId: user[1],
-            ProjectId: $(".ProjectIdCntr" + i).val(),
-            TaskId: $(".TaskIdCntr" + i).val(),
+            UserId: parseInt(user[1]),
+            ProjectId: parseInt($(".ProjectIdCntr" + i).val()),
+            TaskId: parseInt($(".TaskIdCntr" + i).val()),
             FillDates: dates,
             DatesHrs: []
         }
 
         var inputs = $('.rowCntr' + i);
         for (var datesCntr = 0; datesCntr < dates.length; datesCntr++) {
-            pd.DatesHrs.push($(inputs[datesCntr]).val());
+            pd.DatesHrs.push(parseInt($(inputs[datesCntr]).val()));
         }
 
-        projectDetails.collection.push(pd);
+        projectDetails.push(pd);
     }
 }

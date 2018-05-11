@@ -70,17 +70,38 @@ $(document).on('click', '#GetData', function () {
 
 $(document).on('click', '#AddData', function () {
     var insertJson = JSON.stringify({ d: jsonresponse });
-    $.ajax(apiURL + "/InsertEntitiesData", {
+    //$.ajax(apiURL + "/InsertEntitiesData", {
+    //    type: "POST",
+    //    data: insertJson,
+    //    contentType: "application/json",
+    //}).done(function (de) {
+
+    //    alert("Data Inserted!!!")
+
+    //}).fail(function (xhr, status, error) {
+    //    alert("Could not reach the API: " + error);
+    //});
+
+    $.ajax({
         type: "POST",
-        data: insertJson,
-        contentType: "application/json",
-    }).done(function (de) {
+        url: apiURL + "/InsertEntitiesData",
+        async: true,
+        cache: false,
+        type: 'POST',
+        data: jsonresponse,
+        dataType: "json",
+        success: function (result) {
+            $("#imgloader").hide();
+            alert("Data Saved Successfully");
+        },
+        error: function (jqXHR, exception) {
+            $("#imgloader").hide();
+            alert(exception);
+            alert("Could not reach the API: " + error);
 
-        alert("Data Inserted!!!")
-
-    }).fail(function (xhr, status, error) {
-        alert("Could not reach the API: " + error);
+        }
     });
+
 });
 function loadJSON(callback) {
 

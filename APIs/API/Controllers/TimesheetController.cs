@@ -81,8 +81,22 @@ namespace API.Controllers
 
         [Route("SaveTimeSheet")]
         [HttpPost]
-        public bool InsertTimeSheetData(List<UserTimeSheetRequest> request)
+        public bool InsertTimeSheetData([FromBody] List<UserTimeSheet> value)
         {
+            value.ForEach(uts =>
+            {
+                uts.IsSaved = true;
+                appObj.UserTimeSheet.Add(uts);
+                });
+            try
+            {
+                appObj.SaveChanges();
+            }
+            catch (System.Exception ex)
+            {
+
+                return false;
+            }
 
             return true;
         }

@@ -110,6 +110,10 @@
     <Compile Include="Migrations\201804301742109_update-new-collection.Designer.cs">
       <DependentUpon>201804301742109_update-new-collection.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805111132006_UserTimeSheet.cs" />
+    <Compile Include="Migrations\201805111132006_UserTimeSheet.Designer.cs">
+      <DependentUpon>201805111132006_UserTimeSheet.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AppDbContext.cs" />
     <Compile Include="Models\Client.cs" />
@@ -144,6 +148,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804301742109_update-new-collection.resx">
       <DependentUpon>201804301742109_update-new-collection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805111132006_UserTimeSheet.resx">
+      <DependentUpon>201805111132006_UserTimeSheet.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
