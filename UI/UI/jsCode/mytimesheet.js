@@ -3,20 +3,11 @@ var currentdt = new Date;
 var projectTask = [{ projectId: 0, taskId: 0 }];
 var projectDetails = [];
 var dates = [];
+var defaultValue = 8;
 $("#imgloader").hide();
 
-var url = new URL(window.location.href);
-var user = url.searchParams.get("user");
-user = user.split("~0/");
-if (user.length > 0) {
-    user[0] = atob(user[0]);
-    user[1] = atob(user[1]);
-    user[2] = atob(user[2]);
-}
 
-$("#divAdmin").hide();
-if (user[2] == 1)
-    $("#divAdmin").show();
+
 function onchange() {
     currentdt = new Date($("#datepicker").val());
     setWeek(currentdt);
@@ -131,13 +122,13 @@ $(document).on('click', '#addRow', function () {
                     <input type="hidden" class="ProjectIdCntr' + counter + '" value="' + $("#projects option:selected").val() + '"/></td >\
                     <td><span class="TaskCntr' + counter + '">' + $("#tasks option:selected").text() + '</span>\
                     <input type="hidden" class="TaskIdCntr' + counter + '" value="' + $("#tasks option:selected").val() + '"/></td >\
-                    <td><input type="text" onkeyup="CalculateTotal();" class="value Mon rowCntr' + counter + '" value="0:00"></td>\
-                    <td><input type="text" onkeyup="CalculateTotal();" class="value Tue rowCntr' + counter + '" value="0:00"></td>\
-                    <td><input type="text" onkeyup="CalculateTotal();" class="value Wed rowCntr' + counter + '" value="0:00"></td>\
-                    <td><input type="text" onkeyup="CalculateTotal();" class="value Thu rowCntr' + counter + '" value="0:00"></td>\
-                    <td><input type="text" onkeyup="CalculateTotal();" class="value Fri rowCntr' + counter + '" value="0:00"></td>\
-                    <td><input type="text" onkeyup="CalculateTotal();" class="value weekend Sat rowCntr' + counter + '" value="0:00"></td>\
-                    <td><input type="text" onkeyup="CalculateTotal();" class="value weekend Sun rowCntr' + counter + '" value="0:00"></td>\
+                    <td><input type="text" onkeyup="CalculateTotal();" class="value Mon rowCntr' + counter + '" value="' + defaultValue + '"></td>\
+                    <td><input type="text" onkeyup="CalculateTotal();" class="value Tue rowCntr' + counter + '" value="' + defaultValue + '"></td>\
+                    <td><input type="text" onkeyup="CalculateTotal();" class="value Wed rowCntr' + counter + '" value="' + defaultValue + '"></td>\
+                    <td><input type="text" onkeyup="CalculateTotal();" class="value Thu rowCntr' + counter + '" value="' + defaultValue + '"></td>\
+                    <td><input type="text" onkeyup="CalculateTotal();" class="value Fri rowCntr' + counter + '" value="' + defaultValue + '"></td>\
+                    <td><input type="text" onkeyup="CalculateTotal();" class="value weekend Sat rowCntr' + counter + '" value="' + defaultValue + '"></td>\
+                    <td><input type="text" onkeyup="CalculateTotal();" class="value weekend Sun rowCntr' + counter + '" value="' + defaultValue + '"></td>\
                     <td><strong><span class="value RowTotal' + counter + '">0</span></strong></td>\
                     <td><span class="value CommentsCntr' + counter + '">comments</span></td>\
                 </tr>');

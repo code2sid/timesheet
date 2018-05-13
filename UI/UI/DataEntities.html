@@ -9,76 +9,94 @@
     <script src="js/jquery-1.12.4.js"></script>
     <script src="js/jquery-ui.js"></script>
     <script src="jsCode/DataEntites.js"></script>
+    <script src="jsCode/navigation.js"></script>
 
 </head>
 <body>
     <img src="images/laoder.gif" id="imgloader" />
-    <div class="addRow clearfix" style="width:50%">
-        <a href="#" class="add" id="GetData">GetData</a>
+    <div id="divAdmin" class="topband clearfix">
+        <input type="hidden" id="navValues" />
+        <ul>
+            <li><a href="#" id="lnkNew">New</a></li>
+            <li><a href="#" id="lnkSaved">Saved &nbsp;<span></span></a></li>
+            <li><a href="#" id="lnkPending">Pending &nbsp;</a></li>
+            <li><a href="#" id="lnkApproved">Approved</a></li>
+            <li><a href="#" id="lnkDataEntry" class="active">Data Entry</a></li>
+        </ul>
     </div>
-    <div class="addRow clearfix" style="width:50%">
-        <a href="#" class="add" id="AddData">AddData</a>
+    <div class="btnRowleft">
+        <input type="button" id="GetData" value="GetData">
+        <input type="button" id="AddData" value="SaveData">
     </div>
 
-    <div class="table-responsive">
-        Users:
-        <table id="tblUsers" class="tblOffer" width="50%" cellpadding="0" cellspacing="0" border="0">
-            <tr>
-                <th width="4%">Id</th>
-                <th width="32%">Name</th>
-                <th width="32%">Role</th>
-                <th width="32%">Password</th>
-            </tr>
-        </table>
+    <div class="contentWrapper">
+        <div class="viewEdit clearfix">
+            <div style="float: left; width: 50%;">
+                Users:
+                <table id="tblUsers" class="tblOffer" width="90%" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <th width="4%">Id</th>
+                        <th width="32%">Name</th>
+                        <th width="32%">Role</th>
+                        <th width="32%">Password</th>
+                    </tr>
+                </table>
+            </div>
+            <div style="float: left; width: 50%;">
+                Projects:
+                <table id="tblProjects" class="tblOffer" width="90%" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <th width="4%">Id</th>
+                        <th width="48%">Name</th>
+                    </tr>
+                </table>
+            </div>
 
-        <br />
-        Projects:
-        <table id="tblProjects" class="tblOffer" width="50%" cellpadding="0" cellspacing="0" border="0">
-            <tr>
-                <th width="4%">Id</th>
-                <th width="48%">Name</th>
-            </tr>
-        </table>
+            <br />
+            <div style="float: left; width: 50%;">
+                User Projects:
+                <table id="tblUserProjects" class="tblOffer" width="90%" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <th width="4%">Id</th>
+                        <th width="48%">ProjectId</th>
+                        <th width="48%">UserId</th>
+                    </tr>
+                </table>
+            </div>
 
-        <br />
-        User Projects:
-        <table id="tblUserProjects" class="tblOffer" width="50%" cellpadding="0" cellspacing="0" border="0">
-            <tr>
-                <th width="4%">Id</th>
-                <th width="48%">ProjectId</th>
-                <th width="48%">UserId</th>
-            </tr>
-        </table>
-
-        <br />
-        Tasks:
-        <table id="tblTasks" class="tblOffer" width="50%" cellpadding="0" cellspacing="0" border="0">
-            <tr>
-                <th width="4%">Id</th>
-                <th width="48%">Name</th>
-                <th width="48%">Type</th>
-            </tr>
-        </table>
-
-        <br />
-        Project Tasks:
-        <table id="tblProjectTasks" class="tblOffer" width="50%" cellpadding="0" cellspacing="0" border="0">
-            <tr>
-                <th width="4%">Id</th>
-                <th width="48%">ProjectId</th>
-                <th width="48%">TaskId</th>
-            </tr>
-        </table>
+            <div style="float: left; width: 50%;">
+                Tasks:
+                <table id="tblTasks" class="tblOffer" width="90%" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <th width="4%">Id</th>
+                        <th width="48%">Name</th>
+                        <th width="48%">Type</th>
+                    </tr>
+                </table>
+            </div>
+            <br />
+            <div style="float: left; width: 50%;">
+                Project Tasks:
+                <table id="tblProjectTasks" class="tblOffer" width="90%" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <th width="4%">Id</th>
+                        <th width="48%">ProjectId</th>
+                        <th width="48%">TaskId</th>
+                    </tr>
+                </table>
+            </div>
 
 
-        <br />
-        Task Types:
-        <table id="tblTaskTypes" class="tblOffer" width="50%" cellpadding="0" cellspacing="0" border="0">
-            <tr>
-                <th width="4%">Id</th>
-                <th width="32%">Name</th>
-            </tr>
-        </table>
+            <div style="float: left; width: 50%;">
+                Task Types:
+                <table id="tblTaskTypes" class="tblOffer" width="90%" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <th width="4%">Id</th>
+                        <th width="32%">Name</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
     </div>
     <script type="text/javascript">
         $("#imgloader").hide();

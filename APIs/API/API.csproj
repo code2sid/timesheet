@@ -126,10 +126,15 @@
     <Compile Include="Migrations\201805111409242_update-UserTimeSheet.Designer.cs">
       <DependentUpon>201805111409242_update-UserTimeSheet.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805131947277_update-UserTimeSheet-Table.cs" />
+    <Compile Include="Migrations\201805131947277_update-UserTimeSheet-Table.Designer.cs">
+      <DependentUpon>201805131947277_update-UserTimeSheet-Table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AppDbContext.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\DataEntities.cs" />
+    <Compile Include="Models\PendingApproval.cs" />
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\ProjectTasks.cs" />
     <Compile Include="Models\Task.cs" />
@@ -172,6 +177,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805111409242_update-UserTimeSheet.resx">
       <DependentUpon>201805111409242_update-UserTimeSheet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805131947277_update-UserTimeSheet-Table.resx">
+      <DependentUpon>201805131947277_update-UserTimeSheet-Table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

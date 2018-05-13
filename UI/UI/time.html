@@ -15,7 +15,7 @@
 
     <script src="js/jquery-1.12.4.js"></script>
     <script src="js/jquery-ui.js"></script>
-    <script src="jsCode/mytimesheet.js"></script>
+    <script src="jsCode/navigation.js"></script>
     <script>
         $(function () {
             $(function () {
@@ -34,13 +34,13 @@
 </head>
 <body>
     <img src="images/laoder.gif" id="imgloader" />
-    <div id="divAdmin" class="topband clearfix" style="display:block;">
+    <div id="divAdmin" class="topband clearfix">
         <ul>
-            <li><a class="active" href="javascript:void(0);">New</a></li>
-            <li><a href="javascript:void(0);">Saved &nbsp;<span></span></a></li>
-            <li><a href="javascript:void(0);">Pending &nbsp;<span></span></a></li>
-            <li><a href="javascript:void(0);">Approved</a></li>
-            <li><a href="DataEntities.html">Data Entry</a></li>
+            <li><a href="#" id="lnkNew" class="active">New</a></li>
+            <li><a href="#" id="lnkSaved">Saved &nbsp;<span></span></a></li>
+            <li><a href="#" id="lnkPending">Pending &nbsp;</a></li>
+            <li><a href="#" id="lnkApproved">Approved</a></li>
+            <li><a href="#" id="lnkDataEntry" >Data Entry</a></li>
         </ul>
     </div>
 
@@ -116,9 +116,13 @@
         <input type="button" class="save" value="Save"><input type="submit" value="Submit">
     </div>
 
+    <script src="jsCode/mytimesheet.js"></script>
     <script type="text/javascript">
         setWeek((new Date));
         getProjects();
+        $("#divAdmin").hide();
+        if (user[2] == 1)
+            $("#divAdmin").show();
     </script>
 </body>
 </html>

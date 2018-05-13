@@ -17,6 +17,7 @@ namespace API.Models
         public List<int> DatesHrs { get; set; }
         public bool IsSaved { get; set; }
         public bool IsSubmitted { get; set; }
+        public bool IsApproved { get; set; }
         public string Comments { get; set; }
     }
 

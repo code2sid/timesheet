@@ -2,6 +2,11 @@
 var jsonresponse;
 
 $(document).on('click', '#GetData', function () {
+
+    loadData();
+});
+
+function loadData() {
     $("#imgloader").show();
     $.ajax(apiURL + "/GetEntitiesData", {
         type: "GET",
@@ -65,13 +70,13 @@ $(document).on('click', '#GetData', function () {
             </tr>"
             $("#tblTaskTypes").append(row);
         }
+        alert("Data Load Complete");
     }).fail(function (xhr, status, error) {
         alert("Could not reach the API: " + error);
     });
 
     $("#imgloader").hide();
-
-});
+}
 
 $(document).on('click', '#AddData', function () {
     $("#imgloader").show();
@@ -84,9 +89,10 @@ $(document).on('click', '#AddData', function () {
         data: jsonresponse,
         dataType: "json",
         success: function (result) {
-            if (result)
+            if (result) {
                 alert("Data Saved Successfully");
-
+                loadData();
+            }
         },
         error: function (jqXHR, exception) {
             $("#imgloader").hide();

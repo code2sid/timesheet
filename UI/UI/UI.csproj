@@ -60,7 +60,9 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Approval.html" />
     <Content Include="DataEntities.html" />
+    <Content Include="jsCode\navigation.js" />
     <Content Include="src\assets\DataEntries.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
