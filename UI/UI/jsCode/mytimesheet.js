@@ -200,6 +200,33 @@ $(document).on('click', '.save', function () {
 
 });
 
+$(document).on('click', '#btnSubmit', function () {
+    $("#imgloader").show();
+    projectDetails = [];
+    createJson();
+    projectDetails.forEach(function (element) {
+        element.IsSubmitted = true;
+    });
+    $.ajax({
+        type: 'POST',
+        contentType: 'application/json',
+        url: apiURL + "/SubmitTimeSheet",
+        data: JSON.stringify(projectDetails),
+        dataType: "json",
+        success: function (result) {
+            $("#imgloader").hide();
+            alert("Data Saved Successfully");
+        },
+        error: function (jqXHR, exception) {
+            $("#imgloader").hide();
+            alert(exception);
+            alert("Could not reach the API: " + error);
+
+        }
+    });
+
+});
+
 function createJson() {
 
     dates = [$("#MonDate").html() + ', 2018',

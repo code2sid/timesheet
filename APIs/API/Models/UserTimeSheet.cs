@@ -21,12 +21,12 @@ namespace API.Models
         public string Comments { get; set; }
     }
 
-    public class UserTimeSheetRequest
+    public class TimeSheetDateHours
     {
-        public int UserId { get; set; }
-        public int ProjectId { get; set; }
-        public int TaskId { get; set; }
-        public List<DateTime> FillDates { get; set; }
-        public List<int> DatesHrs { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+        public DateTime Date { get; set; }
+        public int Hours { get; set; }
+        public int TimesheetId { get; set; }
     }
 }

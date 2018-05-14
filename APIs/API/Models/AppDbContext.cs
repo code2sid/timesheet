@@ -21,6 +21,7 @@ namespace API.Models
         public DbSet<ProjectTask> ProjectTasks { get; set; }
         public DbSet<TaskType> TaskTypes { get; set; }
         public DbSet<UserTimeSheet> UserTimeSheet { get; set; }
+        public DbSet<TimeSheetDateHours> TimeSheetDateHours { get; set; }
 
     }
 }

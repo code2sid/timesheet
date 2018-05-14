@@ -130,6 +130,18 @@
     <Compile Include="Migrations\201805131947277_update-UserTimeSheet-Table.Designer.cs">
       <DependentUpon>201805131947277_update-UserTimeSheet-Table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805140910430_TimeSheetDateHours_add.cs" />
+    <Compile Include="Migrations\201805140910430_TimeSheetDateHours_add.Designer.cs">
+      <DependentUpon>201805140910430_TimeSheetDateHours_add.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805140919287_delete-UserTimeSheet.cs" />
+    <Compile Include="Migrations\201805140919287_delete-UserTimeSheet.Designer.cs">
+      <DependentUpon>201805140919287_delete-UserTimeSheet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805140920368_add-UserTimeSheet.cs" />
+    <Compile Include="Migrations\201805140920368_add-UserTimeSheet.Designer.cs">
+      <DependentUpon>201805140920368_add-UserTimeSheet.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AppDbContext.cs" />
     <Compile Include="Models\Client.cs" />
@@ -180,6 +192,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805131947277_update-UserTimeSheet-Table.resx">
       <DependentUpon>201805131947277_update-UserTimeSheet-Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805140910430_TimeSheetDateHours_add.resx">
+      <DependentUpon>201805140910430_TimeSheetDateHours_add.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805140919287_delete-UserTimeSheet.resx">
+      <DependentUpon>201805140919287_delete-UserTimeSheet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805140920368_add-UserTimeSheet.resx">
+      <DependentUpon>201805140920368_add-UserTimeSheet.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -54,21 +54,34 @@ namespace API.Controllers
         }
 
         [Route("SaveTimeSheet")]
+        [Route("SubmitTimeSheet")]
         [HttpPost]
         public bool InsertTimeSheetData([FromBody] List<UserTimeSheet> value)
         {
+            var tsDateHours = new TimeSheetDateHours();
+            var lstDateHours = new List<TimeSheetDateHours>();
+
             value.ForEach(uts =>
             {
                 uts.IsSaved = true;
                 appObj.UserTimeSheet.Add(uts);
+                int masterId = appObj.UserTimeSheet.Select(ut => ut.Id).Count() == 0 ? 0 : appObj.UserTimeSheet.Select(ut => ut.Id).Max() + 1;
+                int i = 0;
+                tsDateHours = new TimeSheetDateHours();
+
+
+                uts.FillDates.ForEach(fd => lstDateHours.Add(new TimeSheetDateHours { Date = fd, TimesheetId = masterId }));
+                uts.DatesHrs.ForEach(dh => lstDateHours[i++].Hours = dh);
             });
+
+            lstDateHours.ForEach(dh => appObj.TimeSheetDateHours.Add(dh));
+
             try
             {
                 appObj.SaveChanges();
             }
             catch (System.Exception ex)
             {
-
                 return false;
             }
 
@@ -160,17 +173,30 @@ namespace API.Controllers
         public List<PendingApproval> GetPendingApprovals()
         {
             var lst = new List<PendingApproval>();
-            appObj.UserTimeSheet.Where(uts => uts.IsApproved == false && uts.IsSubmitted == true).ToList().ForEach(ut =>
-            {
-                var userName = appObj.Users.Where(u => u.Id == ut.UserId).FirstOrDefault().Name;
-                var totalHrs = 0;
-                ut.DatesHrs.ForEach(h => totalHrs += h);
-                var weekrange = ut.FillDates[0].ToString() + "-" + ut.FillDates[6].ToString();
-                lst.Add(new PendingApproval { WeekRange = weekrange, TotalHours = totalHrs, UserName = userName });
-            });
+            var utLst = appObj.UserTimeSheet.Where(ut => ut.IsSubmitted == true && ut.IsApproved == false).ToList();
+            utLst.ForEach(ut =>
+                  {
+                      var userName = appObj.Users.Where(u => u.Id == ut.UserId).FirstOrDefault().Name;
+                      var totalHrs = 0;
+                      var tsId = 0;
+                      appObj.TimeSheetDateHours.Where(dh => dh.TimesheetId == ut.Id).ToList().ForEach(dh => { totalHrs += dh.Hours;  if (tsId == 0) tsId = dh.TimesheetId; });
+                      var weekrange = appObj.TimeSheetDateHours.Where(dh => dh.TimesheetId == ut.Id).Select(w=>w.Date).Min().ToString("MMM/dd/yyyy") + "-" + appObj.TimeSheetDateHours.Where(dh => dh.TimesheetId == ut.Id).Select(w => w.Date).Max().ToString("MMM/dd/yyyy");
+                      lst.Add(new PendingApproval { WeekRange = weekrange, TotalHours = totalHrs, UserName = userName, TimeSheetId = tsId });
+                  });
 
             return lst;
 
+        }
+
+        [Route("ApproveTimeSheets")]
+        [HttpPost]
+        public bool ApproveTimeSheets(int[] TimeSheetIds)
+        {
+            foreach (int item in TimeSheetIds)
+            {
+                
+            }
+            return false;
         }
 
     }
