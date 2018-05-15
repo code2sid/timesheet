@@ -25,7 +25,7 @@ namespace API.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
         public int Hours { get; set; }
         public int TimesheetId { get; set; }
     }

@@ -1,4 +1,5 @@
 ﻿using API.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -170,17 +171,24 @@ namespace API.Controllers
         }
 
         [Route("GetPendingApprovals")]
-        public List<PendingApproval> GetPendingApprovals()
+        public List<PendingApproval> GetPendingApprovals(DateTime? from = null, DateTime? to = null)
         {
             var lst = new List<PendingApproval>();
+            int[] ids = null;
             var utLst = appObj.UserTimeSheet.Where(ut => ut.IsSubmitted == true && ut.IsApproved == false).ToList();
+            if (from != null && to != null)
+                ids = appObj.TimeSheetDateHours.Where(dh => dh.Date >= from && dh.Date <= to).Select(dh => dh.TimesheetId).Distinct().ToArray();
+            if (ids != null && ids.Count() > 0)
+                utLst = utLst.Where(l => ids.Contains(l.Id)).ToList();
             utLst.ForEach(ut =>
                   {
                       var userName = appObj.Users.Where(u => u.Id == ut.UserId).FirstOrDefault().Name;
                       var totalHrs = 0;
                       var tsId = 0;
-                      appObj.TimeSheetDateHours.Where(dh => dh.TimesheetId == ut.Id).ToList().ForEach(dh => { totalHrs += dh.Hours;  if (tsId == 0) tsId = dh.TimesheetId; });
-                      var weekrange = appObj.TimeSheetDateHours.Where(dh => dh.TimesheetId == ut.Id).Select(w=>w.Date).Min().ToString("MMM/dd/yyyy") + "-" + appObj.TimeSheetDateHours.Where(dh => dh.TimesheetId == ut.Id).Select(w => w.Date).Max().ToString("MMM/dd/yyyy");
+                      appObj.TimeSheetDateHours.Where(dh => dh.TimesheetId == ut.Id).ToList().ForEach(dh => { totalHrs += dh.Hours; if (tsId == 0) tsId = dh.TimesheetId; });
+
+                      var weekrange = appObj.TimeSheetDateHours.Where(dh => dh.TimesheetId == ut.Id).Select(w => w.Date).Min().Value.ToString("MMM/dd/yyyy") + "-" +
+                          appObj.TimeSheetDateHours.Where(dh => dh.TimesheetId == ut.Id).Select(w => w.Date).Max().Value.ToString("MMM/dd/yyyy");
                       lst.Add(new PendingApproval { WeekRange = weekrange, TotalHours = totalHrs, UserName = userName, TimeSheetId = tsId });
                   });
 
@@ -192,11 +200,22 @@ namespace API.Controllers
         [HttpPost]
         public bool ApproveTimeSheets(int[] TimeSheetIds)
         {
-            foreach (int item in TimeSheetIds)
+            foreach (int id in TimeSheetIds)
             {
-                
+                appObj.UserTimeSheet.Where(ut => ut.Id == id).FirstOrDefault().IsApproved = true;
             }
-            return false;
+
+            try
+            {
+                appObj.SaveChanges();
+            }
+            catch (System.Exception)
+            {
+
+                return false;
+
+            }
+            return true;
         }
 
     }

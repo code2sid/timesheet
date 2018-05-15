@@ -142,6 +142,10 @@
     <Compile Include="Migrations\201805140920368_add-UserTimeSheet.Designer.cs">
       <DependentUpon>201805140920368_add-UserTimeSheet.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805151320407_update-TimeSheetDateHours.cs" />
+    <Compile Include="Migrations\201805151320407_update-TimeSheetDateHours.Designer.cs">
+      <DependentUpon>201805151320407_update-TimeSheetDateHours.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AppDbContext.cs" />
     <Compile Include="Models\Client.cs" />
@@ -201,6 +205,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805140920368_add-UserTimeSheet.resx">
       <DependentUpon>201805140920368_add-UserTimeSheet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805151320407_update-TimeSheetDateHours.resx">
+      <DependentUpon>201805151320407_update-TimeSheetDateHours.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
