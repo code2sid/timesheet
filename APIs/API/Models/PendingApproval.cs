@@ -11,5 +11,6 @@ namespace API.Models
         public string WeekRange { get; set; }
         public int TotalHours { get; set; }
         public string UserName { get; set; }
+        public string Status { get; set; }
     }
 }

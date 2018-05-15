@@ -171,11 +171,13 @@ namespace API.Controllers
         }
 
         [Route("GetPendingApprovals")]
-        public List<PendingApproval> GetPendingApprovals(DateTime? from = null, DateTime? to = null)
+        public List<PendingApproval> GetPendingApprovals(DateTime? from = null, DateTime? to = null, bool includeApproved = false)
         {
             var lst = new List<PendingApproval>();
             int[] ids = null;
-            var utLst = appObj.UserTimeSheet.Where(ut => ut.IsSubmitted == true && ut.IsApproved == false).ToList();
+            var utLst = appObj.UserTimeSheet.Where(ut => ut.IsSubmitted == true).ToList();
+            if (!includeApproved)
+                utLst = utLst.Where(ut => ut.IsApproved == false).ToList();
             if (from != null && to != null)
                 ids = appObj.TimeSheetDateHours.Where(dh => dh.Date >= from && dh.Date <= to).Select(dh => dh.TimesheetId).Distinct().ToArray();
             if (ids != null && ids.Count() > 0)
@@ -186,10 +188,10 @@ namespace API.Controllers
                       var totalHrs = 0;
                       var tsId = 0;
                       appObj.TimeSheetDateHours.Where(dh => dh.TimesheetId == ut.Id).ToList().ForEach(dh => { totalHrs += dh.Hours; if (tsId == 0) tsId = dh.TimesheetId; });
-
+                      var status = ut.IsApproved ? "Approved" : "Approval Pending";
                       var weekrange = appObj.TimeSheetDateHours.Where(dh => dh.TimesheetId == ut.Id).Select(w => w.Date).Min().Value.ToString("MMM/dd/yyyy") + "-" +
                           appObj.TimeSheetDateHours.Where(dh => dh.TimesheetId == ut.Id).Select(w => w.Date).Max().Value.ToString("MMM/dd/yyyy");
-                      lst.Add(new PendingApproval { WeekRange = weekrange, TotalHours = totalHrs, UserName = userName, TimeSheetId = tsId });
+                      lst.Add(new PendingApproval { WeekRange = weekrange, TotalHours = totalHrs, UserName = userName, TimeSheetId = tsId, Status = status });
                   });
 
             return lst;

@@ -2,8 +2,8 @@
 function getPendingApprovals() {
     $("#imgloader").show();
 
-    var apprvalURL = apiURL + "/GetPendingApprovals?from={0}&to={1}";
-    apprvalURL = apprvalURL.replace("{0}", $("#txtFrom").val()).replace("{1}", $("#txtTo").val());
+    var apprvalURL = apiURL + "/GetPendingApprovals?from={0}&to={1}&includeApproved={2}";
+    apprvalURL = apprvalURL.replace("{0}", $("#txtFrom").val()).replace("{1}", $("#txtTo").val()).replace("{2}", $("#chkIncApproved").prop('checked'));
 
     $.ajax(apprvalURL, {
         type: "GET",
@@ -18,6 +18,7 @@ function getPendingApprovals() {
                             <td><span>' + pendingApprovals[i].WeekRange + '</span></td>\
                             <td><span>' + pendingApprovals[i].TotalHours + ' Hours</span></td>\
                             <td><span>' + pendingApprovals[i].UserName + '</span></td>\
+                            <td><span>' + pendingApprovals[i].Status + '</span></td>\
                         </tr >';
             $("#tblresults").append(results);
             counter++;
@@ -36,7 +37,7 @@ $(document).on('click', '#btnReset', function () {
     $("#txtTo").val("");
 });
 
-    $(document).on('click', '#btnSearch', function () {
+$(document).on('click', '#btnSearch', function () {
     getPendingApprovals();
 });
 
@@ -73,4 +74,9 @@ $(document).on('click', '#btnApprove', function () {
     });
 
     $("#imgloader").hide();
+});
+
+$(document).on('click', '#btnReject', function () {
+
+    alert("write reject code");
 });
