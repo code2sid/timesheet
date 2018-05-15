@@ -57,6 +57,7 @@
             To: <input type="text" id="txtTo" />
             <input type="button" id="btnSearch" value="Search" class="btn">
             <input type="button" id="btnReset" value="Reset" class="btn">
+            <input type="checkbox" id="chkIncApproved" />Include Approved
         </div>
     </div>
     <div class="table-responsive">
@@ -80,6 +81,7 @@
         $("#divAdmin").hide();
         if (user[2] == 1)
             $("#divAdmin").show();
+        $("#imgloader").hide();
 
         //getPendingApprovals();
     </script>
