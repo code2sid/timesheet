@@ -191,12 +191,12 @@ $(document).on('click', '.save', function () {
             alert("Data Saved Successfully");
         },
         error: function (jqXHR, exception) {
-            $("#imgloader").hide();
             alert(exception);
             alert("Could not reach the API: " + error);
 
         }
     });
+    $("#imgloader").hide();
 
 });
 
@@ -218,13 +218,13 @@ $(document).on('click', '#btnSubmit', function () {
             alert("Data Saved Successfully");
         },
         error: function (jqXHR, exception) {
-            $("#imgloader").hide();
             alert(exception);
             alert("Could not reach the API: " + error);
 
         }
     });
 
+    $("#imgloader").hide();
 });
 
 function createJson() {

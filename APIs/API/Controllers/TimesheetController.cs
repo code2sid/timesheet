@@ -170,28 +170,36 @@ namespace API.Controllers
 
         }
 
+        [Route("GetSavedTimeSheets")]
         [Route("GetPendingApprovals")]
-        public List<PendingApproval> GetPendingApprovals(DateTime? from = null, DateTime? to = null, bool includeApproved = false)
+        public List<PendingApproval> GetPendingApprovals(RequestData request)
         {
+            PendingApproval pa;
             var lst = new List<PendingApproval>();
             int[] ids = null;
-            var utLst = appObj.UserTimeSheet.Where(ut => ut.IsSubmitted == true).ToList();
-            if (!includeApproved)
+            var utLst = appObj.UserTimeSheet.Where(ut => ut.IsSubmitted == request.IsSubmitted).ToList();
+            if (!request.IncludeApproved)
                 utLst = utLst.Where(ut => ut.IsApproved == false).ToList();
-            if (from != null && to != null)
-                ids = appObj.TimeSheetDateHours.Where(dh => dh.Date >= from && dh.Date <= to).Select(dh => dh.TimesheetId).Distinct().ToArray();
-            if (ids != null && ids.Count() > 0)
+            if (request.From != null && request.To != null)
+            {
+                ids = appObj.TimeSheetDateHours.Where(dh => dh.Date >= request.From && dh.Date <= request.To).Select(dh => dh.TimesheetId).Distinct().ToArray();
                 utLst = utLst.Where(l => ids.Contains(l.Id)).ToList();
+            }
+
+            if (request.UserId > 0)
+                utLst = utLst.Where(l => l.UserId == request.UserId).ToList();
+
             utLst.ForEach(ut =>
                   {
-                      var userName = appObj.Users.Where(u => u.Id == ut.UserId).FirstOrDefault().Name;
-                      var totalHrs = 0;
-                      var tsId = 0;
-                      appObj.TimeSheetDateHours.Where(dh => dh.TimesheetId == ut.Id).ToList().ForEach(dh => { totalHrs += dh.Hours; if (tsId == 0) tsId = dh.TimesheetId; });
-                      var status = ut.IsApproved ? "Approved" : "Approval Pending";
-                      var weekrange = appObj.TimeSheetDateHours.Where(dh => dh.TimesheetId == ut.Id).Select(w => w.Date).Min().Value.ToString("MMM/dd/yyyy") + "-" +
+                      pa = new PendingApproval
+                      {
+                          UserName = appObj.Users.Where(u => u.Id == ut.UserId).FirstOrDefault().Name
+                      };
+                      appObj.TimeSheetDateHours.Where(dh => dh.TimesheetId == ut.Id).ToList().ForEach(dh => { pa.TotalHours += dh.Hours; if (pa.TimeSheetId == 0) pa.TimeSheetId = dh.TimesheetId; });
+                      pa.Status = ut.IsApproved ? "Approved" : ut.IsSubmitted ? "Approval Pending" : "Saved and Not Submitted";
+                      pa.WeekRange = appObj.TimeSheetDateHours.Where(dh => dh.TimesheetId == ut.Id).Select(w => w.Date).Min().Value.ToString("MMM/dd/yyyy") + "-" +
                           appObj.TimeSheetDateHours.Where(dh => dh.TimesheetId == ut.Id).Select(w => w.Date).Max().Value.ToString("MMM/dd/yyyy");
-                      lst.Add(new PendingApproval { WeekRange = weekrange, TotalHours = totalHrs, UserName = userName, TimeSheetId = tsId, Status = status });
+                      lst.Add(pa);
                   });
 
             return lst;
@@ -199,12 +207,39 @@ namespace API.Controllers
         }
 
         [Route("ApproveTimeSheets")]
+        [Route("RejectTimeSheets")]
+        [Route("BulkSubmitTimeSheets")]
         [HttpPost]
-        public bool ApproveTimeSheets(int[] TimeSheetIds)
+        public bool ApproveTimeSheets(int[] TimeSheetIds, string actionType = "ApproveTimeSheets")
         {
-            foreach (int id in TimeSheetIds)
+            switch (actionType)
             {
-                appObj.UserTimeSheet.Where(ut => ut.Id == id).FirstOrDefault().IsApproved = true;
+                case "ApproveTimeSheets":
+                    {
+                        appObj.UserTimeSheet.Where(ut => TimeSheetIds.Contains(ut.Id)).ToList().ForEach(ut => ut.IsApproved = true);
+                        break;
+                    }
+                case "RejectTimeSheets":
+                    {
+                        appObj.UserTimeSheet.Where(ut => TimeSheetIds.Contains(ut.Id)).ToList().ForEach(ut =>
+                        {
+                            ut.IsApproved = false;
+                            ut.IsSubmitted = false;
+                        });
+                        break;
+                    }
+                case "BulkSubmitTimeSheets":
+                    {
+                        appObj.UserTimeSheet.Where(ut => TimeSheetIds.Contains(ut.Id)).ToList().ForEach(ut => ut.IsSubmitted = true);
+                        break;
+                    }
+
+                default:
+                    {
+                        appObj.UserTimeSheet.Where(ut => TimeSheetIds.Contains(ut.Id)).ToList().ForEach(ut => ut.IsApproved = true);
+                        break;
+                    }
+
             }
 
             try
@@ -219,6 +254,5 @@ namespace API.Controllers
             }
             return true;
         }
-
     }
 }

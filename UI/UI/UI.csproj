@@ -64,6 +64,8 @@
     <Content Include="DataEntities.html" />
     <Content Include="jsCode\approval.js" />
     <Content Include="jsCode\navigation.js" />
+    <Content Include="jsCode\savedTimesheets.js" />
+    <Content Include="SavedTimesheet.html" />
     <Content Include="src\assets\DataEntries.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -2,7 +2,6 @@
 var jsonresponse;
 
 $(document).on('click', '#GetData', function () {
-
     loadData();
 });
 
@@ -95,7 +94,6 @@ $(document).on('click', '#AddData', function () {
             }
         },
         error: function (jqXHR, exception) {
-            $("#imgloader").hide();
             alert(exception);
             alert("Could not reach the API: " + error);
 

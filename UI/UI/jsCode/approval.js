@@ -2,10 +2,10 @@
 function getPendingApprovals() {
     $("#imgloader").show();
 
-    var apprvalURL = apiURL + "/GetPendingApprovals?from={0}&to={1}&includeApproved={2}";
-    apprvalURL = apprvalURL.replace("{0}", $("#txtFrom").val()).replace("{1}", $("#txtTo").val()).replace("{2}", $("#chkIncApproved").prop('checked'));
+    var approvalURL = apiURL + "/GetPendingApprovals?from={0}&to={1}&includeApproved={2}";
+    approvalURL = approvalURL.replace("{0}", $("#txtFrom").val()).replace("{1}", $("#txtTo").val()).replace("{2}", $("#chkIncApproved").prop('checked'));
 
-    $.ajax(apprvalURL, {
+    $.ajax(approvalURL, {
         type: "GET",
         contentType: "application/json",
     }).done(function (pendingApprovals) {
@@ -47,36 +47,42 @@ $(document).on('click', '#chkAll', function () {
 });
 
 $(document).on('click', '#btnApprove', function () {
+    ApproveReject("ApproveTimeSheets");
+});
+
+$(document).on('click', '#btnReject', function () {
+    ApproveReject("RejectTimeSheets");
+});
+
+function ApproveReject(actiontype) {
     var tsIds = [];
     $(".chkRow:checkbox:checked").each(function () {
         tsIds.push(parseInt($(this).attr("data-id")));
     });
     $("#imgloader").show();
+
+    var approvalURL = "{0}/{1}?actionType={2}"
+    approvalURL = approvalURL.replace("{0}", apiURL).replace("{1}", actiontype).replace("{2}", actiontype);
+
     $.ajax({
         type: "POST",
-        url: apiURL + "/ApproveTimeSheets",
+        url: approvalURL,
         contentType: 'application/json',
         type: 'POST',
         data: JSON.stringify(tsIds),
         dataType: "json",
         success: function (result) {
             if (result) {
-                alert("TimeSheet Approved Successfully");
+                alert("TimeSheet Updated Successfully");
                 $(".removeRow").remove();
                 getPendingApprovals();
             }
         },
         error: function (jqXHR, exception) {
-            $("#imgloader").hide();
             alert("Could not reach the API: " + error);
 
         }
     });
 
     $("#imgloader").hide();
-});
-
-$(document).on('click', '#btnReject', function () {
-
-    alert("write reject code");
-});
+}
